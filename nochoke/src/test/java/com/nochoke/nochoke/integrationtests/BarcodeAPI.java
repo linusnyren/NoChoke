@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -79,6 +78,7 @@ class BarcodeAPI {
     private boolean okForUserToEat(String str, UserEntity user) {
         for(Allergy s: user.getAllergies()){
             if(str.contains(s.getAllergyName())){
+                System.out.println(s.getAllergyName());
                 return true;
             }
         }

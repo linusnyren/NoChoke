@@ -27,5 +27,8 @@ public class UserEntity {
         this.lastname = lastname;
         this.email = email;
     }
+    public void addAllergyToUser(Allergy allergy){
+        this.allergies.add(allergy);
+    }
 
 }
