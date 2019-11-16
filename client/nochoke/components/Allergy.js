@@ -5,7 +5,7 @@ import axios from 'react-native-axios'
 import {View, Text} from 'react-native';
 
 export default function Allergy(props){
-    const [allergies, setAllergies] = useState(props.data.allergies)
+    const [allergies, setAllergies] = useState()
 
     axios.get('http://192.168.0.15:8080/user/get/1')
     return(

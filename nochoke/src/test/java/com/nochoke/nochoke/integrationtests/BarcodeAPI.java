@@ -6,6 +6,7 @@ import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
 import com.nochoke.nochoke.user.UserEntity;
 import com.nochoke.nochoke.user.UserRepository;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -52,10 +53,12 @@ class BarcodeAPI {
         Assertions.assertTrue(okForUserToEat(res.getBody(), user));
     }
     @Test
-    void getEanInfo(){
+    void getEanInfo() throws JSONException {
         String EAN = "05707381014033";
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> res = restTemplate.getForEntity(buildURL(EAN), String.class);
+        JSONObject json = new JSONObject(res.getBody());
+        System.out.println(json.getString("Produktkod"));
         eanItemRepository.save(new EANItem(EAN, res.getBody()));
         Assertions.assertEquals(eanItemRepository.findByEAN(EAN).getBody(), res.getBody());
     }

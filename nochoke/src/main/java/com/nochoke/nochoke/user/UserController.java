@@ -23,5 +23,9 @@ public class UserController {
     public UserEntity getUser(@PathVariable long userId){
         return userService.getUser(userId);
     }
+    @GetMapping("user/login/{email}")
+    public UserEntity login(@PathVariable String email){
+        return userService.login(email);
+    }
 
 }

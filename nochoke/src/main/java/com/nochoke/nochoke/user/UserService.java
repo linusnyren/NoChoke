@@ -27,4 +27,8 @@ public class UserService {
     public UserEntity getUser(long id){
         return userRepository.findById(id);
     }
+
+    public UserEntity login(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
