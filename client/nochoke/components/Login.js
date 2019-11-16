@@ -6,6 +6,7 @@ import {ScrollView, View, Text} from 'react-native';
 import Signup from './Signup';
 import { whileStatement } from '@babel/types';
 import AppNavigator from '../navigation/AppNavigator';
+import Greeting from './Greeting';
 export default function Login(){
     const [show, setShow] = useState(false)
     const [user, setUser] = useState()
@@ -15,23 +16,18 @@ export default function Login(){
     const login = () => {
         axios.get('http://192.168.0.15:8080/user/login/'+email)
         .then(res => setUser(res.data))
-        .then(_saveToStorage(user))
+        .then(AsyncStorage.setItem('user', 'hej').then(setLoggedin(true)))
     }
     _saveToStorage= async (save) => {
-        
+
             await AsyncStorage.setItem('user', 'hej').then(setLoggedin(true));
             
     }
     if(!show){
     return(
         <ScrollView style={{backgroundColor: 'black'}}>
-            <Text style={{marginTop: 150, textAlign:'center', color:'white', fontSize: 30}}>
-                Welcome to NoChoke!
-            </Text>
-            <Text style={{padding: 10, textAlign:'center', color:'white'}}>
-                Please sign in or register!
-            </Text>
-            <View >
+            <Greeting/>
+            <View style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
                 <Input inputStyle={{color:'white'}}label='Email'
                                 onChange={e => 
                                     setEmail(e.nativeEvent.text)}/>
@@ -47,12 +43,10 @@ export default function Login(){
     }
     if(show){
             return(
-               <ScrollView style={{backgroundColor: 'black'}}>
-                <Button title='Hide' style={{marginTop: 50, padding:10, width: '50%', marginLeft:'auto', marginRight: 'auto'}}onPress={() => setShow(!show)}/>
-                <View style={{margin: 40}}>
+               <ScrollView style={{ backgroundColor: 'black'}}>
+                   <Greeting/>
                     <Signup setUser={setUser.bind(this)}/>
-                    {console.log(user)}
-                </View> 
+                <Button title='Hide' style={{marginTop: 50, padding:10, width: '50%', marginLeft:'auto', marginRight: 'auto'}}onPress={() => setShow(!show)}/>
                 </ScrollView>
             )
     }

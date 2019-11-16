@@ -14,6 +14,7 @@ import Signup from '../components/Signup'
 
 import { MonoText } from '../components/StyledText';
 import Allergy from '../components/Allergy';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function HomeScreen() {
   return (

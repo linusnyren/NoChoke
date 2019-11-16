@@ -10,7 +10,7 @@ export default function Signup(props){
         .then(res => props.setUser(res.data))
     }
     return(
-            <View >
+            <View style={{width: '80%', marginLeft: 'auto', marginRight: 'auto'}}>
                 <Input inputStyle={{color:'white'}}label='Surname' 
                     onChange={e => 
                     setDetails({...details, surname: e.nativeEvent.text})}/>
