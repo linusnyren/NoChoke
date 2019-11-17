@@ -22,7 +22,7 @@ export default function BarcodeScanner(props) {
   handleBarCodeScanned = ({ type, data }) => {
     setState({state, scanned: true });
     let ean = data.startsWith('0') ? data : '0'+data
-    props.setEan({barCode: ean})
+    props.setEan({barCode: ean, scanning: false})
   };
    
 

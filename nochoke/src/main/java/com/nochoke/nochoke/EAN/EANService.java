@@ -26,9 +26,13 @@ public class EANService{
         UserEntity user = userService.getUser(userId);
         JSONObject json = ean_apiCaller.getProductByEan(ean);
         JSONArray allergyArray = new JSONArray();
+        int id= 1;
         for(Allergy s : user.getAllergies()) {
             JSONObject jsonArray = new JSONObject();
-            jsonArray.put(s.getAllergyName(), json.toString().toLowerCase().contains(s.getAllergyName().toLowerCase()));
+            jsonArray.put("allergyName", s.getAllergyName());
+            jsonArray.put("contain", json.toString().toLowerCase().contains(s.getAllergyName().toLowerCase()));
+            jsonArray.put("id", id);
+            id++;
             allergyArray.put(jsonArray);
         }
         json.put("allergyList", allergyArray);
