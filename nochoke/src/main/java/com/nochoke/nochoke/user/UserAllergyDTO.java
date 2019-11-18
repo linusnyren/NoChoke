@@ -1,7 +1,6 @@
 package com.nochoke.nochoke.user;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.sun.javafx.collections.MappingChange;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.json.JSONObject;

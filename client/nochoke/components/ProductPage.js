@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, List, ListView} from 'react-native';
-import { Input, Button } from 'react-native-elements';
 import axios from 'react-native-axios'
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ProductPage(props) {
     const[product, setProduct] = useState()
-
+    const[unrecognized, setUnrecognized] = useState(false)
     useEffect(() => {
-        let url = 'http://192.168.0.15:8080/getEan/'+props.barCode
-        axios.get('http://192.168.0.15:8080/okToEat/1/04018077775703')
-        .then(res => setProduct(res.data))
+        let url = 'http://192.168.0.15:8080/okToEat/1/04018077775703'+props.barCode
+        axios.get(url)
+        .then(res => 
+            res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true))
         
     }, [])
     if(product){
@@ -34,13 +33,22 @@ export default function ProductPage(props) {
 
     )
     }
-    else{
+    if(!product && !unrecognized){
         return(
             <View>
-                <Text>
+                <Text style={{fontSize: 25, textAlign: 'center'}}> 
                     Fetching
                 </Text>
             </View>
+        )
+    }
+    if(unrecognized){
+        return (
+            <View>
+            <Text style={{fontSize: 25, textAlign: 'center'}}>
+                Couldn´t find product :/
+            </Text>
+        </View>
         )
     }
         
