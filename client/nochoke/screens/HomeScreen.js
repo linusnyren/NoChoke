@@ -1,31 +1,12 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-
-import Signup from '../components/Signup'
-
-import { MonoText } from '../components/StyledText';
-import Allergy from '../components/Allergy';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-
+import { StyleSheet, Text, ScrollView } from 'react-native';
+import Greeting from '../components/Greeting';
+import Allergy from '../components/Allergy'
 export default function HomeScreen() {
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
-      <Text style={{color: 'white',marginTop:100, textAlign: 'center', fontSize:25}}>
-        Welcome to NoChoke
-      </Text>
-      <Text style={{color: 'white', padding: 20, textAlign: 'center', fontSize: 15}}>
-        This app will help you determine if a product contains allergenes
-      </Text>
-      <Signup/>
+    <ScrollView style={{ backgroundColor: 'black', color: 'white' }}>
+      <Greeting />
       <Allergy />
     </ScrollView>
   );
@@ -71,8 +52,8 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
-  Text:{
-    flex:1,
+  Text: {
+    flex: 1,
     textAlign: 'center',
     marginTop: 200,
     marginBottom: 'auto'
