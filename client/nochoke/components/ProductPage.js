@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
+import { Button } from 'react-native-elements'
 import axios from 'react-native-axios'
 
 export default function ProductPage(props) {

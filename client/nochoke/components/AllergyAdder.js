@@ -6,7 +6,6 @@ import { Input, Button } from 'react-native-elements';
 export default function AllergyAdder(props) {
     const [allergy, setAllergy] = useState()
     const [show, setShow] = useState(false)
-    console.log(props)
     const addAllergy = () => {
         axios.post("http://100.74.227.155:8080/user/addAllergy/1", { "allergyName": allergy })
             .then(res => props.setAllergies(res.data))
