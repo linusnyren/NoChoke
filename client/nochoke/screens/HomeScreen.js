@@ -5,7 +5,7 @@ import Greeting from '../components/Greeting';
 import Allergy from '../components/Allergy'
 export default function HomeScreen() {
   return (
-    <ScrollView style={{ backgroundColor: 'black', color: 'white' }}>
+    <ScrollView>
       <Greeting />
       <Allergy />
     </ScrollView>

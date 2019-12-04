@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
 import Signup from './components/Signup';
-import Login from './components/Login';
+import LoginPage from './components/LoginPage';
 import BarCodeScanner from './components/BarcodeScanner';
 
 export default function App(props) {
@@ -26,7 +26,7 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <Login />
+        <LoginPage />
       </View>
     );
   }
@@ -61,7 +61,5 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-    color: 'white'
   },
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import axios from 'react-native-axios';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button , ListItem } from 'react-native-elements';
 
 export default function AllergyAdder(props) {
     const [allergy, setAllergy] = useState()
@@ -17,32 +17,63 @@ export default function AllergyAdder(props) {
             }
             )
     }
+    const styles = StyleSheet.create({
+        menuButton:{
+            padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' 
+        },
+        input:{
+            width:'60%',
+            margin: 'auto'
+        },
+        listItem:{
+            borderWidth: 10,
+            borderRadius: 10,
+            borderColor: 'white',
+            borderBottomWidth: 0,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.8,
+            shadowRadius: 4,
+            elevation: 1,
+            margin: 10,
+            backgroundColor: ''
+        },
+        view:{
+            margin: 10
+        },
+        text:{
+            textAlign: 'center',
+            fontSize: 20,
+            color:'white'
+        }
+      });
         return (
             <ScrollView>
                 <View>
-                    <Input inputStyle={{ color: 'white' }} label='Allergy'
-                        onChange={e =>
-                            setAllergy(e.nativeEvent.text)} />
+                    <Input style={styles.input}
+                            label='Allergy'
+                            onChange={e =>
+                                setAllergy(e.nativeEvent.text)} />
                     <Button title='Add Allergy' onPress={() => addAllergy()}
-                        style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} />
-                </View>
+                        style={styles.menuButton} />
+                </View> 
                 <View>
                     {props.allergies ?
-                        <View>
-                            <Text style={{color: 'white', textAlign: 'center', fontSize:20}}>
+                        <View style={styles.view}>
+                            <Text style={styles.text}>
                                 Click on one to delete it
                             </Text>
                         {props.allergies.map(a =>
-                            <Button key={a.id} 
-                                  onPress={() => removeAllergy(a)}
-                                  title={a.allergyName}
-                                  style={{padding: 10, width:'40%', marginLeft: 'auto', marginRight: 'auto'}}
-                                  />
-                        
+                               <ListItem
+                               style={styles.listItem}
+                               key={a.id}
+                               title={a.allergyName}
+                               onPress={() => removeAllergy(a)}
+                             />
                         )}
                         </View>
                 :
-                <Text style={{color:'white'}}>Wow such empty</Text>
+                <Text>Wow such empty</Text>
                         }
                 </View>
             </ScrollView>
