@@ -6,8 +6,9 @@ import axios from 'react-native-axios'
 export default function ProductPage(props) {
     const [product, setProduct] = useState()
     const [unrecognized, setUnrecognized] = useState(false)
+    
     useEffect(() => {
-        let url = 'http://100.74.227.155:8080/okToEat/1/'+'07350013350160'
+        let url = 'http://100.74.227.155:8080/okToEat/1/'+'07312200011155'
         axios.get(url)
             .then(res => {
                 res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true);
@@ -34,6 +35,7 @@ export default function ProductPage(props) {
                           title={z.allergyName}
                           subtitle={z.contain ? "Contains" : "Doesn't contain "}
                           bottomDivider
+                          style={{width:'80%', marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'gray'}}
                         />
                 ))}
                 <Text style={{ fontSize: 25, textAlign: 'center', color:'white' }}>

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import BarCodeScanner from '../components/BarcodeScanner'
-
-import axios from 'react-native-axios'
 import ProductPage from '../components/ProductPage';
 
 export default function CameraScreen() {

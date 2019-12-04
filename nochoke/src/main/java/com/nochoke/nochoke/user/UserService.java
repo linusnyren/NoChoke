@@ -5,6 +5,8 @@ import com.nochoke.nochoke.allergy.AllergyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -30,5 +32,16 @@ public class UserService {
 
     public UserEntity login(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<UserEntity> getAll() {
+        return userRepository.findAll();
+    }
+
+    public UserEntity removeAllergyFromUser(Allergy allergy, long userid) {
+        UserEntity userEntity = userRepository.findById(userid);
+        userEntity.getAllergies().remove(allergy);
+        userRepository.save(userEntity);
+        return userEntity;
     }
 }

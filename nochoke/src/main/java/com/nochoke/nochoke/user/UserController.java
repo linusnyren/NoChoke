@@ -4,6 +4,8 @@ import com.nochoke.nochoke.allergy.Allergy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
@@ -19,13 +21,24 @@ public class UserController {
     public UserEntity addAllergyToUser(@RequestBody Allergy allergy, @PathVariable long userid){
         return userService.addAllergyToUser(allergy, userid);
     }
+    @PostMapping("/user/removeAllergy/{userid}")
+    public UserEntity removeAllergyFromUser(@RequestBody Allergy allergy, @PathVariable long userid){
+        return userService.removeAllergyFromUser(allergy, userid);
+    }
     @GetMapping("user/get/{userId}")
     public UserEntity getUser(@PathVariable long userId){
+
         return userService.getUser(userId);
     }
+
     @GetMapping("user/login/{email}")
     public UserEntity login(@PathVariable String email){
         return userService.login(email);
+    }
+
+    @GetMapping("user/getall")
+    public List<UserEntity> getAll(){
+        return userService.getAll();
     }
 
 }

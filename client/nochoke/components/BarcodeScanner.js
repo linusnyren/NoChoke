@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Vibration } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
@@ -20,6 +20,7 @@ export default function BarcodeScanner(props) {
   };
 
   handleBarCodeScanned = ({ type, data }) => {
+    Vibration.vibrate()
     setState({ state, scanned: true });
     let ean = data.startsWith('0') ? data : '0' + data
     props.setEan({ barCode: ean, scanning: false })
