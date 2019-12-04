@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import * as WebBrowser from 'expo-web-browser';
-import { Input, Button } from 'react-native-elements';
+import {Button } from 'react-native-elements';
 import axios from 'react-native-axios'
+import { Input, Block } from 'galio-framework';
 import { View, Text } from 'react-native';
 export default function Signup(props) {
     const [details, setDetails] = useState({ surname: null, lastname: null, email: null })
@@ -15,13 +16,15 @@ export default function Signup(props) {
     }
     return (
         <View style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-            <Input inputStyle={{ color: 'gray'}} placeholder='Surname'
+
+            
+            <Input rounded inputStyle={{ color: 'gray'}} placeholder='Surname'
                 onChange={e =>
                     setDetails({ ...details, surname: e.nativeEvent.text })} />
-            <Input inputStyle={{ color: 'gray' }} placeholder='Lastname'
+            <Input rounded inputStyle={{ color: 'gray' }} placeholder='Lastname'
                 onChange={e =>
                     setDetails({ ...details, lastname: e.nativeEvent.text })} />
-            <Input inputStyle={{ color: 'gray' }} placeholder='Email'
+            <Input rounded inputStyle={{ color: 'gray' }} placeholder='Email'
                 onChange={e =>
                     setDetails({ ...details, email: e.nativeEvent.text })} />
             <Button buttonStyle={{borderRadius: 10,backgroundColor: 'orange'}} style={{ margin: 10 }} title='Submit' onPress={signup} />
