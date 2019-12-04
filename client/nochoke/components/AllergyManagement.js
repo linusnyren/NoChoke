@@ -6,11 +6,11 @@ import { Input, Button , ListItem } from 'react-native-elements';
 export default function AllergyAdder(props) {
     const [allergy, setAllergy] = useState()
     const addAllergy = () => {
-        axios.post("http://100.74.227.155:8080/user/addAllergy/1", { "allergyName": allergy })
+        axios.post("http://192.168.0.15:8080/user/addAllergy/1", { "allergyName": allergy })
             .then(res => props.setAllergies(res.data.allergies))
     }
     const removeAllergy= (a) => {
-        axios.post("http://100.74.227.155:8080/user/removeAllergy/1", a)
+        axios.post("http://192.168.0.15:8080/user/removeAllergy/1", a)
             .then(res => {
                 console.log(res.data)
                 props.setAllergies(res.data.allergies)
@@ -18,9 +18,6 @@ export default function AllergyAdder(props) {
             )
     }
     const styles = StyleSheet.create({
-        menuButton:{
-            padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' 
-        },
         input:{
             width:'60%',
             margin: 'auto'
@@ -36,28 +33,42 @@ export default function AllergyAdder(props) {
             shadowRadius: 4,
             elevation: 1,
             margin: 10,
-            backgroundColor: ''
         },
         view:{
-            margin: 10
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto', 
         },
         text:{
             textAlign: 'center',
             fontSize: 20,
-            color:'white'
+        },
+        menuButton:{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            width:'60%',
+            borderRadius: 10,
+            borderBottomWidth: .1,
+            shadowColor: 'black',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.8,
+            shadowRadius: 4,
+            elevation: 1,
+            margin: 10,
         }
       });
         return (
             <ScrollView>
-                <View>
+                <View style={styles.view}>
                     <Input style={styles.input}
                             label='Allergy'
                             onChange={e =>
                                 setAllergy(e.nativeEvent.text)} />
-                    <Button title='Add Allergy' onPress={() => addAllergy()}
-                        style={styles.menuButton} />
+                    <Button title='Add Allergy' 
+                            onPress={() => addAllergy()}
+                            style={styles.menuButton} />
                 </View> 
-                <View>
+                <View style={styles.view}>
                     {props.allergies ?
                         <View style={styles.view}>
                             <Text style={styles.text}>

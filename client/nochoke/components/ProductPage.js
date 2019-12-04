@@ -8,7 +8,7 @@ export default function ProductPage(props) {
     const [unrecognized, setUnrecognized] = useState(false)
     
     useEffect(() => {
-        let url = 'http://100.74.227.155:8080/okToEat/1/'+'07312200011155'
+        let url = 'http://192.168.0.15:8080/okToEat/1/'+'07312200011155'
         axios.get(url)
             .then(res => {
                 res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true);
