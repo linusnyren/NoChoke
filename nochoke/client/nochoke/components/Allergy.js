@@ -13,20 +13,20 @@ export default function Allergy(props) {
             .then(res => setAllergies(res.data.allergies))
     })
 
-    if(!show){
-    return (
-            <ScrollView style={{backgroundColor: 'white'}}>
-                <Button  title='Manage your allergies' onPress={() => login()}
-buttonStyle={{backgroundColor: 'orange',  borderRadius: 10}}
-                        style={{padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }}  onPress={() => setShow(true)} />
+    if (!show) {
+        return (
+            <ScrollView style={{ backgroundColor: 'white' }}>
+                <Button title='Manage your allergies' onPress={() => login()}
+                    buttonStyle={{ backgroundColor: 'orange', borderRadius: 10 }}
+                    style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(true)} />
                 <AllergyList allergies={allergies} />
             </ScrollView>
-    )
+        )
     }
-    else{
-        return(
+    else {
+        return (
             <ScrollView>
-                <Button title='Done' onPress={() => setShow(false)}/>
+                <Button title='Done' onPress={() => setShow(false)} />
                 <AllergyManagement setAllergies={setAllergies.bind(this)} allergies={allergies} />
             </ScrollView>
         )

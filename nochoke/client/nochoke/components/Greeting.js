@@ -5,11 +5,11 @@ import { ScrollView, Text } from 'react-native';
 export default function Greeting() {
 
     return (
-        <ScrollView style={{ backgroundColor: 'white' }}>
-            <Text style={{ color: 'black', marginTop: 100, textAlign: 'center', fontSize: 25 }}>
+        <ScrollView style={{ backgroundColor: 'orange' }}>
+            <Text style={{ color: 'white', marginTop: 100, textAlign: 'center', fontSize: 40, fontWeight: "900" }}>
                 Welcome to NoChoke
         </Text>
-            <Text style={{ color: 'black', padding: 20, textAlign: 'center', fontSize: 15 }}>
+            <Text style={{ color: 'white', padding: 20, textAlign: 'center', fontSize: 20, fontWeight: "600" }}>
                 This app will help you determine if a product contains allergenes
         </Text>
         </ScrollView>

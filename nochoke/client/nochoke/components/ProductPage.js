@@ -4,6 +4,7 @@ import { Button, ListItem, Icon } from 'react-native-elements'
 import axios from 'react-native-axios'
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import AnimatedLoader from "react-native-animated-loader";
+import { Checkbox } from 'galio-framework';
 
 
 
@@ -84,6 +85,21 @@ export default function ProductPage(props) {
     color: "#505e80"
   }}
 />
+
+
+{product.allergyList.map(z => (
+
+
+
+<Checkbox
+key={z.id}
+color={z.contain ? "error" : "success"}
+label={z.allergyName}
+/>
+))}
+
+{/*
+
 {product.allergyList.map(z => (
 
 
@@ -92,7 +108,8 @@ export default function ProductPage(props) {
                           iconDisable
                           key={z.id}
                           title={z.allergyName}
-                          content={z.contain ? "Contains" : "Doesn't contain "}
+                          content={z.contain ? <Checkbox color="error" label="no" />
+                          : <Checkbox color="success" label="Safe to eat" />}
                           topRightStyle={{
                             fontSize: 12,
                             fontWeight: "700",
@@ -105,7 +122,7 @@ export default function ProductPage(props) {
                           }}
                         />
                 ))}
-
+                        */}
     
 
 
