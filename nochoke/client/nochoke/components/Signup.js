@@ -29,7 +29,8 @@ export default function Signup(props) {
             paddingBottom: 5,
             paddingLeft: 20,
             borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20
+            borderBottomRightRadius: 20,
+            fontSize: 20
         },
         wrapper: {
             display: "flex",
@@ -41,7 +42,7 @@ export default function Signup(props) {
             marginTop: 5,
             marginBottom: 8,
             marginLeft: 20,
-            fontWeight: "500"
+            fontWeight: "600"
         },
     })
 

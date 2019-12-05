@@ -7,10 +7,8 @@ export default function AllergyList(props) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: "center",
-            backgroundColor: "#fff",
-            justifyContent: "center"
-        }
+    
+                }
     })
 
     if (props.allergies.length >= 0) {

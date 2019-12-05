@@ -3,7 +3,7 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { Ionicons, AntDesign, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, AntDesign, FontAwesome, Entypo } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
 import Signup from './components/Signup';
@@ -38,14 +38,14 @@ async function loadResourcesAsync() {
       require('./assets/images/robot-dev.png'),
       require('./assets/images/robot-prod.png'),
     ]),
-    Font.loadAsync({
+    await Font.loadAsync({
       'Montserrat-Black': require('./assets/fonts/Montserrat-Black.ttf'),
       'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
       'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
-
+      ...Entypo.font,
+      ...FontAwesome.font,
       ...Ionicons.font,
-      ...AntDesign.font,
-      ...FontAwesome.font
+      ...AntDesign.font
       
       
     }),
