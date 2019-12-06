@@ -7,6 +7,8 @@ import HomeScreen from '../screens/HomeScreen';
 import CameraScreen from '../screens/CameraScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AllergyManagementScreen from '../screens/AllergyManagementScreen'
+import Profile from '../components/Profile'
+import History from '../components/History'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -17,6 +19,9 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     AllergyManagement: AllergyManagementScreen,
+    Camera: CameraScreen,
+    Profile: Profile,
+    History: History,
   },
   
 );

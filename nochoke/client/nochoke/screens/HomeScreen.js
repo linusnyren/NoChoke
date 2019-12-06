@@ -5,7 +5,7 @@ import Greeting from '../components/Greeting';
 import Allergy from '../components/Allergy'
 export default function HomeScreen(props) {
   return (
-    <ScrollView style={{ backgroundColor: 'black', color: 'white' }}>
+    <ScrollView style={{ backgroundColor: 'orange', flex: 1 }}>
       <Greeting />
       <Allergy navigate={props.navigation.navigate.bind(this)}/>
     </ScrollView>

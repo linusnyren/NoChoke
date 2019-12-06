@@ -3,7 +3,6 @@ import * as WebBrowser from 'expo-web-browser';
 import axios from 'react-native-axios'
 import { ScrollView, View } from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import AllergyList from './AllergyList';
 import AllergyManagement from './AllergyManagement';
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import * as Font from "expo-font";
@@ -28,7 +27,7 @@ export default function Allergy(props) {
 
                     <Card
                         title="Allergier"
-                        iconName="apple"
+                        iconName="eye"
                         iconType="FontAwesome"
                         content="Tryck för att se dina allergier, lägga till eller ta bort en allergi"
                         onPress={() => props.navigate('AllergyManagement')}
@@ -49,7 +48,26 @@ export default function Allergy(props) {
                         iconType="FontAwesome"
                         title="Scanna"
                         content="Tryck för att skanna en produkt"
-                        onPress={() => {}}
+                        onPress={() => props.navigate('Camera')}
+                        iconBackgroundColor="#FFDAB9"
+                        bottomRightText="..."
+                        topRightStyle={{
+                            fontSize: 12,
+                            fontWeight: "700",
+                            color: "#505e80"
+                        }}
+                        bottomRightStyle={{
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            color: "#505e80"
+                        }}
+                    />
+                    <Card
+                        iconName="user"
+                        iconType="FontAwesome"
+                        title="Profilinställningar"
+                        content="Tryck för att komma till profilinställningar"
+                        onPress={() => props.navigate('Profile')}
                         iconBackgroundColor="#FFDAB9"
                         bottomRightText="..."
                         topRightStyle={{
@@ -66,9 +84,9 @@ export default function Allergy(props) {
                         <Card
                         iconName="eye"
                         iconType="FontAwesome"
-                        title="Allergi"
-                        content="Tryck för att se dina allergier (Denna tas bort kanske?)"
-                        onPress={() => props.navigate('AllergyList')}
+                        title="Historik"
+                        content="Tryck för att se dina tidigare sökningar"
+                        onPress={() => props.navigate('History')}
                         iconBackgroundColor="#FFDAB9"
                         bottomRightText="..."
                         topRightStyle={{
@@ -82,28 +100,7 @@ export default function Allergy(props) {
                             color: "#505e80"
                         }}
                     />
-                    
-
-                    <Card
-                        iconName="user"
-                        iconType="FontAwesome"
-                        title="Profilinställningar"
-                        content="Tryck för att komma till profilinställningar"
-                        iconBackgroundColor="#FFDAB9"
-                        bottomRightText="..."
-                        topRightStyle={{
-                            fontSize: 12,
-                            fontWeight: "700",
-                            color: "#505e80"
-                        }}
-                        bottomRightStyle={{
-                            fontSize: 16,
-                            fontWeight: "bold",
-                            color: "#505e80"
-                        }}
-                    />
-
-
+{/*
 <Card
                         iconName="camera"
                         iconType="FontAwesome"
@@ -160,7 +157,7 @@ export default function Allergy(props) {
                             fontWeight: "bold",
                             color: "#505e80"
                         }}
-                    />
+                    />/*
 
 
 
