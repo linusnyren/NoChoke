@@ -39,9 +39,12 @@ HomeStack.navigationOptions = {
     />
   ),
 };
-
 HomeStack.path = '';
 
+export default HomeStack;
+
+
+/*
 const CameraStack = createStackNavigator(
   {
     Camera: CameraScreen,
@@ -81,5 +84,4 @@ const tabNavigator = createBottomTabNavigator({
 });
 
 tabNavigator.path = '';
-
-export default tabNavigator;
+*/

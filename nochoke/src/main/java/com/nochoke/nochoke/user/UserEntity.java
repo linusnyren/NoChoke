@@ -1,6 +1,7 @@
 package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
+import com.nochoke.nochoke.history.History;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,9 @@ public class UserEntity {
 
     @ManyToMany
     private List<Allergy> allergies;
+
+    @OneToMany
+    private List<History> historyList;
 
     public UserEntity(String surname, String lastname, String email) {
         this.surname = surname;

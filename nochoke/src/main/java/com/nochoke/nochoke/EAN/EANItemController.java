@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class EANItemController {
 
@@ -20,6 +22,10 @@ public class EANItemController {
     @GetMapping("/okToEat/{userid}/{EAN}")
     public String okToEat(@PathVariable long userid, @PathVariable String EAN) throws JSONException {
         return eanService.okToEat(userid, EAN).toString();
+    }
+    @GetMapping("/getHistory/{userid}")
+    public String getHistory(@PathVariable long userid) throws JSONException {
+        return eanService.getHistory(userid).toString();
     }
 
 }

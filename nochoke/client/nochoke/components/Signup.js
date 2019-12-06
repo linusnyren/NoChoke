@@ -100,7 +100,7 @@ export default function Signup(props) {
                         selectionColor='white'
                         autoCorrect={false}
                         onChange={e =>
-                            setEmail(e.nativeEvent.text)}
+                            null}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField

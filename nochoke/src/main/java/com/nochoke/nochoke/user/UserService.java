@@ -2,6 +2,7 @@ package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

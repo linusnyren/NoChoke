@@ -1,6 +1,7 @@
 package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
