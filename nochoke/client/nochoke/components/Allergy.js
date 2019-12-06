@@ -7,17 +7,15 @@ import AllergyList from './AllergyList';
 import AllergyManagement from './AllergyManagement';
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import * as Font from "expo-font";
-import CameraScreen from '../screens/CameraScreen';
 
 
 export default function Allergy(props) {
     const [show, setShow] = useState(false)
     const [allergies, setAllergies] = useState([])
     useEffect(() => {
-        axios.get("http://192.168.86.112:8080/user/get/1")
+        axios.get("http://192.168.0.15:8080/user/get/1")
             .then(res => setAllergies(res.data.allergies))
     })
-
     if (!show) {
         return (
             <View style={{ backgroundColor: 'orange', flex: 1 }}>
@@ -28,12 +26,12 @@ export default function Allergy(props) {
                     style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(true)} />
                 */}
 
-
                     <Card
                         title="Allergier"
                         iconName="apple"
                         iconType="FontAwesome"
-                        content="Tryck för att lägga till eller ta bort en allergi"
+                        content="Tryck för att se dina allergier, lägga till eller ta bort en allergi"
+                        onPress={() => props.navigate('AllergyManagement')}
                         iconBackgroundColor="#FFDAB9"
                         topRightStyle={{
                             fontSize: 12,
@@ -51,7 +49,7 @@ export default function Allergy(props) {
                         iconType="FontAwesome"
                         title="Scanna"
                         content="Tryck för att skanna en produkt"
-                        onPress={() => CameraScreen}
+                        onPress={() => {}}
                         iconBackgroundColor="#FFDAB9"
                         bottomRightText="..."
                         topRightStyle={{
@@ -69,7 +67,8 @@ export default function Allergy(props) {
                         iconName="eye"
                         iconType="FontAwesome"
                         title="Allergi"
-                        content="Tryck för att se dina allergier"
+                        content="Tryck för att se dina allergier (Denna tas bort kanske?)"
+                        onPress={() => props.navigate('AllergyList')}
                         iconBackgroundColor="#FFDAB9"
                         bottomRightText="..."
                         topRightStyle={{

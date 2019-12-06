@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import axios from 'react-native-axios';
 import { Input, Button } from 'react-native-elements';
 
-export default function AllergyAdder(props) {
+export default function AllergyManagement(props) {
     const [allergy, setAllergy] = useState()
     const addAllergy = () => {
-        axios.post("http://192.168.86.112:8080/user/addAllergy/1", { "allergyName": allergy })
-            .then(res => props.setAllergies(res.data.allergies))
+        axios.post("http://192.168.0.15:8080/user/addAllergy/1", { "allergyName": allergy })
+            .then(res => setAllergies(res.data.allergies))
     }
-    const removeAllergy = (a) => {
-        axios.post("http://192.168.86.112:8080/user/removeAllergy/1", a)
-            .then(res => {
-                console.log(res.data)
-                props.setAllergies(res.data.allergies)
-            }
-            )
-    }
+
     return (
         <ScrollView>
             <View>
@@ -32,14 +25,6 @@ export default function AllergyAdder(props) {
                         <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }}>
                             Click on one to delete it
                             </Text>
-                        {props.allergies.map(a =>
-                            <Button key={a.id}
-                                onPress={() => removeAllergy(a)}
-                                title={a.allergyName}
-                                style={{ padding: 10, width: '40%', marginLeft: 'auto', marginRight: 'auto' }}
-                            />
-
-                        )}
                     </View>
                     :
                     <Text style={{ color: 'white' }}>Wow such empty</Text>

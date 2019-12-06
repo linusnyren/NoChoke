@@ -30,7 +30,7 @@ export default function ProductPage(props) {
 
 
     useEffect(() => {
-        let url = 'http://192.168.86.112:8080/okToEat/1/'+'07312200011155'
+        let url = 'http://192.168.0.15:8080/okToEat/1/'+'07312200011155'
         axios.get(url)
             .then(res => {
                 res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true);

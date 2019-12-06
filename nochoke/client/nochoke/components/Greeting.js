@@ -1,9 +1,8 @@
 import React, { useState, AsyncStorage } from 'react'
 import * as WebBrowser from 'expo-web-browser';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, Button } from 'react-native';
 
-export default function Greeting() {
-
+export default function Greeting(props) {
     return (
         <ScrollView style={{ backgroundColor: 'orange' }}>
             <Text style={{ color: 'white', marginTop: 100, marginLeft: 30, fontSize: 40, fontWeight: "900" }}>
