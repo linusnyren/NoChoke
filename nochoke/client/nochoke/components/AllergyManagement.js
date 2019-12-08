@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import axios from 'react-native-axios';
 import { Input, Button } from 'react-native-elements';
+import isEmpty from "react-native-web/dist/vendor/react-native/isEmpty";
 
 export default function AllergyManagement(props) {
     const [allergy, setAllergy] = useState()
     const addAllergy = () => {
-        axios.post("http://192.168.0.15:8080/user/addAllergy/1", { "allergyName": allergy })
-            .then(res => setAllergies(res.data.allergies))
+        if(!isEmpty(allergy) && allergy != null) {
+            axios.post("http://192.168.86.120:8080/user/addAllergy/1", {"allergyName": allergy})
+                .then(res => setAllergy(res.data.allergies))
+        }
     }
 
     return (

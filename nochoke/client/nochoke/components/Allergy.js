@@ -82,7 +82,7 @@ export default function Allergy(props) {
                         }}
                     />
                         <Card
-                        iconName="eye"
+                        iconName="history"
                         iconType="FontAwesome"
                         title="Historik"
                         content="Tryck för att se dina tidigare sökningar"
