@@ -8,9 +8,7 @@ import ItemFactory from './ItemFactory.js';
 export default function History(){
     const [history, setHistory] = useState([])
     const [loading, setLoading] = useState(true)
-/*
-axios.get user history
-*/
+
 useEffect(() => {
     axios.get("http://100.74.227.155:8080/getHistory/1")
     .then(res => {
@@ -19,6 +17,12 @@ useEffect(() => {
         })
 })
   const styles = StyleSheet.create({
+    text:{
+        fontSize: 16,
+        fontWeight: "700",
+        textAlign: "center",
+        marginTop: 30
+    },
     container: {
       flex: 1,
       alignItems: "center",
@@ -49,6 +53,12 @@ if(loading){
 else{
     return(
         <ScrollView style={{backgroundColor: "orange"}}>
+            <Text style={styles.text}>
+                Här är alla dina tidigare sökningar
+            </Text>
+            <Text style={styles.text}>
+                Du har sökt efter {history.length} totalt
+            </Text>
             {console.log(history[0].allergyList)}
                    {history.map(x =>
                     <View key={x.id} style={{backgroundColor: "orange"}}>
