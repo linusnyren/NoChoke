@@ -27,5 +27,7 @@ public class History {
     private String dateTime;
 
     public History(String ean, String now) {
+        this.ean = ean;
+        this.dateTime = now;
     }
 }

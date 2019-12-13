@@ -1,7 +1,6 @@
 package com.nochoke.nochoke.integrationtests;
 
-import com.nochoke.nochoke.EAN.EANItem;
-import com.nochoke.nochoke.EAN.EANItemRepository;
+
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
 import com.nochoke.nochoke.user.UserEntity;
@@ -30,8 +29,6 @@ class BarcodeAPI {
     AllergyRepository allergyRepository;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    EANItemRepository eanItemRepository;
 
     @Test
     void testBarcode(){
@@ -53,29 +50,11 @@ class BarcodeAPI {
         Assertions.assertTrue(okForUserToEat(res.getBody(), user));
     }
     @Test
-    void getEanInfo() throws JSONException {
+    void getEanInfo(){
         String EAN = "05707381014033";
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> res = restTemplate.getForEntity(buildURL(EAN), String.class);
-        JSONObject json = new JSONObject(res.getBody());
-        System.out.println(json.getString("Produktkod"));
-        eanItemRepository.save(new EANItem(EAN, res.getBody()));
-        Assertions.assertEquals(eanItemRepository.findByEAN(EAN).getBody(), res.getBody());
-    }
-    @Test
-    void updateEANItemIfOld(){
-        String EAN = "08710532023874";
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> res = restTemplate.getForEntity(buildURL(EAN), String.class);
-        eanItemRepository.save(new EANItem(EAN, res.getBody()));
-
-        LocalDateTime itemTime = eanItemRepository.findByEAN(EAN).getLocalDateTime();
-        LocalDateTime now = LocalDateTime.now();
-        if (itemTime.isAfter(now)){
-            eanItemRepository.delete(eanItemRepository.findByEAN(EAN));
-            eanItemRepository.save(new EANItem(EAN, res.getBody()));
-        }
-        Assertions.assertTrue(true);
+        Assertions.assertTrue(res.getBody().contains(EAN));
     }
 
     private boolean okForUserToEat(String str, UserEntity user) {

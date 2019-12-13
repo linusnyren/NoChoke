@@ -1,7 +1,5 @@
 package com.nochoke.nochoke.apicaller;
 
-import com.nochoke.nochoke.EAN.EANItem;
-import com.nochoke.nochoke.EAN.EANItemRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import java.time.LocalDateTime;
 public class EAN_APICaller implements EANFetcher {
     RestTemplate restTemplate = new RestTemplate();
     private static String API_KEY="263173d7-3c93-4509-a996-680e1e0da700";
-    @Autowired
-    EANItemRepository eanItemRepository;
 
     @Override
     @Transactional

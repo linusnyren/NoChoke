@@ -21,10 +21,10 @@ public class UserEntity {
     @NotNull
     private String surname, lastname, email;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Allergy> allergies;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<History> historyList;
 
     public UserEntity(String surname, String lastname, String email) {

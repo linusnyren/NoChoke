@@ -1,21 +1,61 @@
 import React,{useEffect, useState} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, Image, Tooltip} from 'react-native'
 import axios from 'react-native-axios'
+import { Card, SimpleCard } from "@paraboly/react-native-card"
+import AnimatedLoader from "react-native-animated-loader";
+import ItemFactory from './ItemFactory.js';
+
 export default function History(){
-    const [history, setHistory] = useState()
+    const [history, setHistory] = useState([])
+    const [loading, setLoading] = useState(true)
 /*
 axios.get user history
 */
 useEffect(() => {
-    axios.get("http://192.168.0.15:8080/getHistory/1")
-    .then(res => console.log(res.data))
+    axios.get("http://100.74.227.155:8080/getHistory/1")
+    .then(res => {
+        setHistory(res.data.historyList)
+        setLoading(false)
+        })
 })
-
-return(
-    <View>
-        <Text>
-            Sökhistorik
-        </Text>
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      backgroundColor: "#fff",
+      justifyContent: "center",
+      marginTop: 16
+    },
+    lottie: {
+       width: 100,
+       height: 100
+      }
+  });
+if(loading){
+    return(
+        <View>
+            <Text>Fetching your history, this could take a while</Text>
+    <AnimatedLoader
+    visible={true}
+    overlayColor="rgba(255,255,255,0.75)"
+    source={require("./loader.json")}
+    animationStyle={styles.lottie}
+    speed={1}
+    />
     </View>
-)
+    )
+}
+
+else{
+    return(
+        <ScrollView style={{backgroundColor: "orange"}}>
+            {console.log(history[0].allergyList)}
+                   {history.map(x =>
+                    <View key={x.id} style={{backgroundColor: "orange"}}>
+                            <ItemFactory product={x}/>
+                    </View>)}
+        </ScrollView>
+    )
+}
+
 }

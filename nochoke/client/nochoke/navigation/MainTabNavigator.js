@@ -23,22 +23,7 @@ const HomeStack = createStackNavigator(
     Profile: Profile,
     History: History,
   },
-  
 );
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? 'ios-home'
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
 HomeStack.path = '';
 
 export default HomeStack;

@@ -8,7 +8,7 @@ export default function Signup(props) {
     const [details, setDetails] = useState({ surname: null, lastname: null, email: null })
 
     const signup = () => {
-        axios.post('http://192.168.0.15:8080/user/add', details)
+        axios.post('http://100.74.227.155:8080/user/add', details)
             .then(res => {
                 props.setUser(res.data)
                 props.setShow(false)

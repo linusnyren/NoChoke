@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native';
 import { Button, ListItem, Icon } from 'react-native-elements'
 import axios from 'react-native-axios'
-import { Card, SimpleCard } from "@paraboly/react-native-card"
 import AnimatedLoader from "react-native-animated-loader";
-import { Checkbox } from 'galio-framework';
+import ItemFactory from './ItemFactory.js';
 
 
 
@@ -30,7 +29,7 @@ export default function ProductPage(props) {
 
 
     useEffect(() => {
-        let url = 'http://192.168.86.120:8080/okToEat/1/'+'07312200011155'
+        let url = 'http://100.74.227.155:8080/okToEat/1/'+'08710532023874'
         axios.get(url)
             .then(res => {
                 res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true);
@@ -39,9 +38,37 @@ export default function ProductPage(props) {
     }, [])
     if (product) {
         return (
-            
-            <ScrollView style={{backgroundColor: 'white', color:'black'}}>
+          <View>
+              <ItemFactory product={product} />
+          </View>
+        )
+    }
+    if (!product && !unrecognized) {
+        return (
+                    <AnimatedLoader
+                    visible={true}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                    />
+        )
+    }
+    if (unrecognized) {
+        return (
+            <View style={{backgroundColor: 'black', color:'white', height:'100%'}}>
+                <Button title="Scan again" onPress={() => props.setEan({ scanning: true })} />
+                <Text style={{ fontSize: 25, textAlign: 'center', color:'white' }}>
+                    Couldn´t find product :/
+                </Text>
+                
+            </View>
+        )
+    }
 
+}
+
+{/*
 <Image style={{ width: '100%', height: 300 }}
                     source={{ uri: product.Bilder[0].Lank }}
                     resizeMode="contain"
@@ -111,7 +138,7 @@ export default function ProductPage(props) {
                           }}
                         />
                 ))}
-                        */}
+                        
     
 
 
@@ -150,31 +177,3 @@ export default function ProductPage(props) {
                     </Text>
                 )} 
                 */}
-            </ScrollView>
-
-        )
-    }
-    if (!product && !unrecognized) {
-        return (
-                    <AnimatedLoader
-                    visible={true}
-                    overlayColor="rgba(255,255,255,0.75)"
-                    source={require("./loader.json")}
-                    animationStyle={styles.lottie}
-                    speed={1}
-                    />
-        )
-    }
-    if (unrecognized) {
-        return (
-            <View style={{backgroundColor: 'black', color:'white', height:'100%'}}>
-                <Button title="Scan again" onPress={() => props.setEan({ scanning: true })} />
-                <Text style={{ fontSize: 25, textAlign: 'center', color:'white' }}>
-                    Couldn´t find product :/
-                </Text>
-                
-            </View>
-        )
-    }
-
-}

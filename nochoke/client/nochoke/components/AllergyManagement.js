@@ -8,7 +8,7 @@ export default function AllergyManagement(props) {
     const [allergy, setAllergy] = useState()
     const addAllergy = () => {
         if(!isEmpty(allergy) && allergy != null) {
-            axios.post("http://192.168.86.120:8080/user/addAllergy/1", {"allergyName": allergy})
+            axios.post("http://100.74.227.155:8080/user/addAllergy/1", {"allergyName": allergy})
                 .then(res => setAllergy(res.data.allergies))
         }
     }

@@ -6,11 +6,11 @@ import { Card, SimpleCard } from "@paraboly/react-native-card"
 export default function AllergyList(props) {
     const [allergies, setAllergies] = useState([])
     useEffect(() => {
-        axios.get("http://192.168.86.120:8080/user/get/1")
+        axios.get("http://100.74.227.155:8080/user/get/1")
             .then(res => setAllergies(res.data.allergies))
     })
     const removeAllergy = (a) => {
-        axios.post("http://192.168.86.120:8080/user/removeAllergy/1", a)
+        axios.post("http://100.74.227.155:8080/user/removeAllergy/1", a)
             .then(res => {
                 console.log(res.data)
                 setAllergies(res.data.allergies)
