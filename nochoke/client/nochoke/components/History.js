@@ -4,18 +4,18 @@ import axios from 'react-native-axios'
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import AnimatedLoader from "react-native-animated-loader";
 import ItemFactory from './ItemFactory.js';
+import BackendServerIP from "../BackendServerIP"
 
 export default function History(){
     const [history, setHistory] = useState([])
     const [loading, setLoading] = useState(true)
-
 useEffect(() => {
-    axios.get("http://100.74.227.155:8080/getHistory/1")
+    axios.get(BackendServerIP+"/getHistory/1")
     .then(res => {
         setHistory(res.data.historyList)
         setLoading(false)
         })
-})
+},[])
   const styles = StyleSheet.create({
     text:{
         fontSize: 16,

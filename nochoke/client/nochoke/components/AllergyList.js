@@ -2,17 +2,17 @@ import React,{useState, useEffect} from "react"
 import axios from 'react-native-axios'
 import { View, Text, StyleSheet } from 'react-native'
 import { Card, SimpleCard } from "@paraboly/react-native-card"
+import BackendServerIP from "../BackendServerIP"
 
 export default function AllergyList(props) {
     const [allergies, setAllergies] = useState([])
     useEffect(() => {
-        axios.get("http://100.74.227.155:8080/user/get/1")
+        axios.get(BackendServerIP+"/user/get/1")
             .then(res => setAllergies(res.data.allergies))
     })
     const removeAllergy = (a) => {
-        axios.post("http://100.74.227.155:8080/user/removeAllergy/1", a)
+        axios.post(BackendServerIP+"/user/removeAllergy/1", a)
             .then(res => {
-                console.log(res.data)
                 setAllergies(res.data.allergies)
             }
             )

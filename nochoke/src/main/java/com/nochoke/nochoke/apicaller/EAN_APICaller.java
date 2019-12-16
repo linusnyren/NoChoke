@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class EAN_APICaller implements EANFetcher {
@@ -17,9 +18,27 @@ public class EAN_APICaller implements EANFetcher {
 
     @Override
     @Transactional
-    public JSONObject getProductByEan(String ean) throws JSONException {
-        ResponseEntity<String> res = restTemplate.getForEntity(buildURL(ean), String.class);
-        return new JSONObject(res.getBody());
+    public JSONObject getProductByEan(String ean){
+        ResponseEntity<String> res;
+        try {
+            res = restTemplate.getForEntity(buildURL(ean), String.class);
+
+        }
+        catch(Exception e){
+            throw new APIConnectionException("Couldnt fetch from API");
+        }
+        if(res.toString().contains("Varumarke")){
+            try {
+                return new JSONObject(res.getBody()).put("ean", ean);
+            }
+            catch(JSONException e){
+                System.out.println(e.getMessage());
+                return null;
+            }
+        }
+        else{
+            throw new BadEANResponseException("Bad response from API");
+        }
     }
 
     private String buildURL(String EAN){

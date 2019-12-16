@@ -4,7 +4,8 @@ import { Button, ListItem, Icon } from 'react-native-elements'
 import axios from 'react-native-axios'
 import AnimatedLoader from "react-native-animated-loader";
 import ItemFactory from './ItemFactory.js';
-
+import BackendServerIP from "../BackendServerIP"
+import { readAsStringAsync } from 'expo-file-system';
 
 
 
@@ -29,20 +30,18 @@ export default function ProductPage(props) {
 
 
     useEffect(() => {
-        let url = 'http://100.74.227.155:8080/okToEat/1/'+'08710532023874'
-        axios.get(url)
+        axios.get(BackendServerIP+"/okToEat/1/"+"08710532023874")
             .then(res => {
-                res.data.Marknadsbudskap ? setProduct(res.data) : setUnrecognized(true);
+                if(res.status === 200){
+                  setProduct(res.data)
+                }
+                else{
+                  setUnrecognized(true)
+                }
             }
+            
             )
     }, [])
-    if (product) {
-        return (
-          <View>
-              <ItemFactory product={product} />
-          </View>
-        )
-    }
     if (!product && !unrecognized) {
         return (
                     <AnimatedLoader
@@ -65,6 +64,13 @@ export default function ProductPage(props) {
             </View>
         )
     }
+    if (product) {
+      return (
+        <View style={{backgroundColor: "orange"}}>
+            <ItemFactory product={product} />
+        </View>
+      )
+  }
 
 }
 

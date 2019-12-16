@@ -15,7 +15,6 @@ public class UserController {
     @CrossOrigin
     @PostMapping("/user/add")
     public UserEntity addUser(@RequestBody UserEntity userEntity){
-        System.out.println(userEntity);
         return userService.addUser(userEntity);
     }
     @PostMapping("/user/addAllergy/{userid}")
@@ -28,7 +27,6 @@ public class UserController {
     }
     @GetMapping("user/get/{userId}")
     public UserEntity getUser(@PathVariable long userId){
-
         return userService.getUser(userId);
     }
 

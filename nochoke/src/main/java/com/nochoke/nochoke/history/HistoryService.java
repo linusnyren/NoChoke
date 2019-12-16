@@ -3,6 +3,8 @@ package com.nochoke.nochoke.history;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class HistoryService {
     @Autowired
@@ -12,4 +14,5 @@ public class HistoryService {
         historyRepository.save(history);
         return history;
     }
+
 }

@@ -6,13 +6,14 @@ import { Input, Button } from 'react-native-elements';
 import AllergyManagement from './AllergyManagement';
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import * as Font from "expo-font";
+import BackendServerIP from "../BackendServerIP"
 
 
 export default function Allergy(props) {
     const [show, setShow] = useState(false)
     const [allergies, setAllergies] = useState([])
     useEffect(() => {
-        axios.get("http://100.74.227.155:8080/user/get/1")
+        axios.get(BackendServerIP+"/user/get/1")
             .then(res => setAllergies(res.data.allergies))
     })
     if (!show) {

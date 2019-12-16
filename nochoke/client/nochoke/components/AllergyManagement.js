@@ -3,12 +3,13 @@ import { View, Text, ScrollView } from 'react-native';
 import axios from 'react-native-axios';
 import { Input, Button } from 'react-native-elements';
 import isEmpty from "react-native-web/dist/vendor/react-native/isEmpty";
+import BackendServerIP from "../BackendServerIP"
 
 export default function AllergyManagement(props) {
     const [allergy, setAllergy] = useState()
     const addAllergy = () => {
         if(!isEmpty(allergy) && allergy != null) {
-            axios.post("http://100.74.227.155:8080/user/addAllergy/1", {"allergyName": allergy})
+            axios.post(BackendServerIP+"/user/addAllergy/1", {"allergyName": allergy})
                 .then(res => setAllergy(res.data.allergies))
         }
     }

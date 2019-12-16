@@ -27,6 +27,10 @@ export default function ItemFactory(props){
               return "Innehåller inte "+x.allergyName +"\n"
           }
       }
+      function formatDate(x){
+        let date = new Date(x)
+        return date.toLocaleString("se-sv")
+      }
     return(
             
             <ScrollView style={{backgroundColor: 'orange', color:'black'}}>
@@ -40,7 +44,7 @@ export default function ItemFactory(props){
           onPress={() => {}}
           borderRadius={20}
           iconBackgroundColor="#fcd"
-          content= { props.product.date ? "You scanned this at " +props.product.date : "Additional information"}
+          content= { props.product.date ? "You scanned this at " +formatDate(props.product.date) : "Additional information"}
           topRightStyle={{
             fontSize: 12,
             fontWeight: "700",
@@ -56,8 +60,9 @@ export default function ItemFactory(props){
                     source={{ uri: props.product.Bilder[0].Lank }}
                     resizeMode="contain"
                 />
+              
 <SimpleCard
-  title={"Allergier \n" +props.product.allergyList ? props.product.allergyList.map(x => textFormat(x)) : "No info"}
+  title={"Allergier \n" +props.product.allergyList ? props.product.allergyList.map(x => textFormat(x)) : "You have no allergies recorded"}
   styles={{ width: "90%", marginBottom: 20, marginTop: 20, fontWeight:"700", color: "#505e80", fontSize:12}}
 />
       </View>

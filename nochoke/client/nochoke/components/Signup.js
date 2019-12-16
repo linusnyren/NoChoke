@@ -4,11 +4,11 @@ import { Button } from 'react-native-elements';
 import axios from 'react-native-axios'
 import { Input, Block } from 'galio-framework';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import BackendServerIP from "../BackendServerIP"
 export default function Signup(props) {
     const [details, setDetails] = useState({ surname: null, lastname: null, email: null })
-
     const signup = () => {
-        axios.post('http://100.74.227.155:8080/user/add', details)
+        axios.post(BackendServerIP+'/user/add', details)
             .then(res => {
                 props.setUser(res.data)
                 props.setShow(false)
