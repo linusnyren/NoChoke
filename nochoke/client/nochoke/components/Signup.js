@@ -60,6 +60,8 @@ export default function Signup(props) {
                     <TextInput
                         selectionColor='white'
                         autoCorrect={false}
+                        onChange={e =>
+                            setDetails({ ...details, surname: e.nativeEvent.text })}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField
@@ -71,6 +73,8 @@ export default function Signup(props) {
                     <TextInput
                         selectionColor='white'
                         autoCorrect={false}
+                        onChange={e =>
+                            setDetails({ ...details, lastname: e.nativeEvent.text })}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField

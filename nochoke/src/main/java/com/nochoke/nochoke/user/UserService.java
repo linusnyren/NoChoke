@@ -2,15 +2,10 @@ package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
-import com.nochoke.nochoke.allergy.AllergyService;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -21,9 +16,20 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     AllergyRepository allergyRepository;
+    @Autowired
+    JavaMailSender javaMailSender;
+
+    void sendWelcomeMail(String to, String userName) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(to);
+        simpleMailMessage.setSubject("Välkommen till NoChoke, " + userName);
+        simpleMailMessage.setText("VÄLKOMMEEEEN");
+        javaMailSender.send(simpleMailMessage);
+    }
 
     public UserEntity addUser(UserEntity userEntity) {
         userRepository.save(userEntity);
+        sendWelcomeMail(userEntity.getEmail().toLowerCase(), userEntity.getSurname());
         return userEntity;
     }
 
