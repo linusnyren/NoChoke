@@ -45,6 +45,7 @@ public class AllergyService {
         try {
             json.put("allergyList", allergyChecker(user.getAllergies(), json));
             json.put("ean", ean);
+            logger.info(user +" checked for allergy \n" +json.toString());
             return json;
         }
         catch(JSONException e){
@@ -83,6 +84,7 @@ public class AllergyService {
                 id++;
                 allergyArray.put(jsonArray);
             }
+
             return allergyArray;
         }
         catch(JSONException e){
