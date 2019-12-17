@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from "react"
 import axios from 'react-native-axios'
-import { View, Text, StyleSheet } from 'react-native'
+import {View, Text, StyleSheet, ScrollView} from 'react-native'
 import { Card, SimpleCard } from "@paraboly/react-native-card"
 import BackendServerIP from "../BackendServerIP"
 
@@ -19,19 +19,16 @@ export default function AllergyList(props) {
     }
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
-    
+            backgroundColor: 'orange'
                 }
     })
 
     if (allergies.length >= 0) {
         return (
+            <ScrollView style={{backgroundColor: "orange"}}>
             <View style={styles.container}>
-                <Text style={{ color: 'orange', textAlign: 'center', padding: 10 }}>
-                    Your Allergies
-                </Text>
-                <Text style={{ color: 'orange', textAlign: 'center', padding: 10 }}>
-                    Click on one to delete it
+                <Text style={{ color: 'white', textAlign: 'center', padding: 10 }}>
+                    Dina allergier
                 </Text>
                 {allergies.map(a =>
                     <SimpleCard key={a.id} 
@@ -39,6 +36,7 @@ export default function AllergyList(props) {
                                 onPress={() => removeAllergy(a)} />
                 )}
             </View>
+            </ScrollView>
         )
     }
     else {
