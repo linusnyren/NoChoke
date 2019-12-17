@@ -25,6 +25,13 @@ public class UserController {
     public UserEntity removeAllergyFromUser(@RequestBody Allergy allergy, @PathVariable long userid){
         return userService.removeAllergyFromUser(allergy, userid);
     }
+
+    @PutMapping("user/changeUserEmail/{userid}")
+    public UserEntity changeUserEmail(@RequestBody String email, @PathVariable long userid) {
+        System.out.println(email.toString());
+        return userService.changeUserEmail(email, userid);
+    }
+
     @GetMapping("user/get/{userId}")
     public UserEntity getUser(@PathVariable long userId){
         return userService.getUser(userId);

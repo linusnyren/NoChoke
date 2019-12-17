@@ -27,6 +27,16 @@ public class UserService {
         return userEntity;
     }
 
+    public UserEntity changeUserEmail(String email, long id) {
+        UserEntity user = userRepository.findById(id);
+        user.setEmail(email);
+        return user;
+    }
+
+    public void changeUserPassword(String password, long id) {
+        UserEntity user = userRepository.findById(id);
+    }
+
     public UserEntity addAllergyToUser(Allergy allergy, long userid) {
         UserEntity user = userRepository.findById(userid);
         user.addAllergyToUser(allergy);
@@ -52,4 +62,5 @@ public class UserService {
         userRepository.save(userEntity);
         return userEntity;
     }
+
 }

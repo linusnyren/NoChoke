@@ -56,12 +56,10 @@ export default function Signup(props) {
             <View style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
                 <View style={[styles.wrapper]}>
 
-                    <Text style={[{ color: 'white' }, styles.label]}>Firstname</Text>
+                    <Text style={[{ color: 'white' }, styles.label]}>Förnamn</Text>
                     <TextInput
                         selectionColor='white'
                         autoCorrect={false}
-                        onChange={e =>
-                            setDetails({ ...details, surname: e.nativeEvent.text })}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField
@@ -69,12 +67,10 @@ export default function Signup(props) {
                     />
                 </View>
                 <View style={[styles.wrapper]}>
-                    <Text style={[{ color: 'white' }, styles.label]}>Lastname</Text>
+                    <Text style={[{ color: 'white' }, styles.label]}>Efternamn</Text>
                     <TextInput
                         selectionColor='white'
                         autoCorrect={false}
-                        onChange={e =>
-                            setDetails({ ...details, lastname: e.nativeEvent.text })}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField
@@ -95,7 +91,7 @@ export default function Signup(props) {
                     />
                 </View>
                 <View style={[styles.wrapper]}>
-                    <Text style={[{ color: 'white' }, styles.label]}>Password</Text>
+                    <Text style={[{ color: 'white' }, styles.label]}>Lösenord</Text>
                     <TextInput
                         selectionColor='white'
                         autoCorrect={false}
@@ -110,7 +106,7 @@ export default function Signup(props) {
 
                 <Text style={[{ color: 'white' }, styles.submitButton]}
                     onPress={signup}
-                >Submit</Text>
+                >Skapa</Text>
 
                 {/*
 

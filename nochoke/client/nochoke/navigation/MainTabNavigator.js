@@ -22,7 +22,9 @@ const HomeStack = createStackNavigator(
     Camera: CameraScreen,
     Profile: Profile,
     History: History,
-  },
+  }, {
+      headerMode: 'none'
+    }
 );
 HomeStack.path = '';
 
