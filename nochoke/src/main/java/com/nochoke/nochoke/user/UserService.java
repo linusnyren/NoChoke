@@ -2,7 +2,12 @@ package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
+import com.nochoke.nochoke.allergy.AllergyService;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +15,7 @@ import java.util.List;
 
 @Service
 public class UserService {
+
 
     @Autowired
     UserRepository userRepository;
