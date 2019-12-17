@@ -8,6 +8,8 @@ import com.nochoke.nochoke.user.UserService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,9 @@ import java.util.List;
 
 @Service
 public class AllergyService {
+
+    Logger logger = LoggerFactory.getLogger(AllergyService.class);
+
     @Autowired
     EAN_APICaller ean_apiCaller;
     @Autowired
@@ -40,7 +45,7 @@ public class AllergyService {
             return json;
         }
         catch(JSONException e){
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return null;
         }
     }
@@ -59,7 +64,7 @@ public class AllergyService {
             return new JSONObject().put("historyList", jsonArray);
         }
         catch (JSONException e){
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return null;
         }
     }
@@ -78,7 +83,7 @@ public class AllergyService {
             return allergyArray;
         }
         catch(JSONException e){
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return null;
         }
     }
