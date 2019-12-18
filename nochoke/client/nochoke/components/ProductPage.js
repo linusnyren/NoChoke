@@ -30,9 +30,9 @@ export default function ProductPage(props) {
 
 
     useEffect(() => {
-        axios.get(BackendServerIP+"/okToEat/1/"+"08710532023874")
+        axios.get(BackendServerIP+"/okToEat/1/"+props.barCode)
             .then(res => {
-                if(res.status === 200){
+                if(res.status === 200 && res.data.Bilder.length > 0){
                   setProduct(res.data)
                 }
                 else{
@@ -55,18 +55,18 @@ export default function ProductPage(props) {
     }
     if (unrecognized) {
         return (
-            <View style={{backgroundColor: 'black', color:'white', height:'100%'}}>
-                <Button title="Scan again" onPress={() => props.setEan({ scanning: true })} />
+            <View style={{backgroundColor: 'orange', color:'white', height:'100%', padding: 60}}>
                 <Text style={{ fontSize: 25, textAlign: 'center', color:'white' }}>
-                    Couldn´t find product :/
+                    Denna produkt fanns inte i vårt register
                 </Text>
+                <Button title="Skanna en ny produkt" onPress={() => props.setEan({ scanning: true })} />
                 
             </View>
         )
     }
     if (product) {
       return (
-        <View style={{backgroundColor: "orange", height:"100%"}}>
+        <View style={{backgroundColor: "orange", height:"100%", paddingTop: 20}}>
             <ItemFactory product={product} />
         </View>
       )
