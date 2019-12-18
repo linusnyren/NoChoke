@@ -6,10 +6,10 @@ export default function Greeting(props) {
     return (
         <ScrollView style={{ backgroundColor: 'orange' }}>
             <Text style={{ color: 'white', marginTop: 100, marginLeft: 30, fontSize: 40, fontWeight: "900" }}>
-                Welcome to NoChoke
+                Välkommen till NoChoke
         </Text>
             <Text style={{ color: 'white', padding: 20, marginLeft: 10, fontSize: 20, fontWeight: "700" }}>
-                This app will help you determine if a product contains allergenes
+                Denna app kommer hjälpa dig avgöra om en produkt innehåller allergener
         </Text>
         </ScrollView>
     )

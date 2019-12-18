@@ -66,7 +66,7 @@ export default function ProductPage(props) {
     }
     if (product) {
       return (
-        <View style={{backgroundColor: "orange"}}>
+        <View style={{backgroundColor: "orange", height:"100%"}}>
             <ItemFactory product={product} />
         </View>
       )

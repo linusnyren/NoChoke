@@ -20,16 +20,37 @@ export default function AllergyList(props) {
     const styles = StyleSheet.create({
         container: {
             backgroundColor: 'orange'
-                }
+                },
+        textOk:{ 
+            color: 'white', 
+            textAlign: 'center',
+            fontSize: 22, 
+            padding: 10 
+        },
+        textNotOk:{
+            color: 'white', 
+            textAlign: 'center', 
+            padding: 10,
+            fontSize: 17,
+            fontStyle: "italic" 
+        }
     })
 
-    if (allergies.length >= 0) {
         return (
-            <ScrollView style={{backgroundColor: "orange"}}>
+            <ScrollView style={styles.container}>
             <View style={styles.container}>
-                <Text style={{ color: 'white', textAlign: 'center', padding: 10 }}>
-                    Dina allergier
-                </Text>
+                    {allergies.length > 0 
+                    ?
+                    <View>
+                        <Text style={styles.textOk}>Dina allergier</Text>
+                        <Text style={styles.textNotOk}>Tryck på en allergen för att ta bort den</Text>
+                    </View> 
+                    :
+                    <View>
+                        <Text style={styles.textNotOk}>Du har inte angett några allergier ännu</Text>
+                        <Text style={styles.textNotOk}>När allergier läggs till dyker de upp här</Text>
+                    </View>
+                    }
                 {allergies.map(a =>
                     <SimpleCard key={a.id} 
                                 title={a.allergyName}
@@ -38,14 +59,4 @@ export default function AllergyList(props) {
             </View>
             </ScrollView>
         )
-    }
-    else {
-        return (
-            <View>
-                <Text style={{ backgroundColor: 'white', color: 'gray' }}>
-                    Empty
-                </Text>
-            </View>
-        )
-    }
 }

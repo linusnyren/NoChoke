@@ -122,7 +122,7 @@ export default function Login() {
                             />
                         </View>
                         <View style={[styles.wrapper]}>
-                            <Text style={[{ color: 'white' }, styles.label]}>Password</Text>
+                            <Text style={[{ color: 'white' }, styles.label]}>Lösenord</Text>
                             <TextInput
                                 selectionColor='white'
                                 autoCorrect={false}
@@ -137,7 +137,7 @@ export default function Login() {
                         </View>
                         <Text style={[{ color: 'white' }, styles.registerButton]}
                             onPress={() => setShow(!show)}
-                        >Register</Text>
+                        >Registrering</Text>
 
                     </ScrollView>
 
@@ -199,7 +199,7 @@ export default function Login() {
             <ScrollView style={{ backgroundColor: 'orange' }}>
                 <Greeting />
                 <Signup setUser={setUser.bind(this)} setShow={setShow.bind(this)} />
-                <Button titleStyle={{ color: 'white' }} type="clear" title='Hide' style={{ marginTop: 50, padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(!show)} />
+                <Button titleStyle={{ color: 'white' }} type="clear" title='Göm' style={{ marginTop: 50, padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(!show)} />
             </ScrollView>
         )
     }

@@ -14,7 +14,7 @@ export default function AllergyManagementScreen(){
     })
 
     return(
-        <ScrollView>
+        <ScrollView style={{backgroundColor:"orange", height:"100%"}}>
             <AllergyManagement allergies={allergies} setAllergies={setAllergies.bind(this)}/>
             <AllergyList allergies={allergies} setAllergies={setAllergies.bind(this)}/>
         </ScrollView>

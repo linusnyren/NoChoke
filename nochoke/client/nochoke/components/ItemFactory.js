@@ -33,7 +33,7 @@ export default function ItemFactory(props){
       }
     return(
             
-            <ScrollView style={{backgroundColor: 'orange', color:'black'}}>
+            <ScrollView style={{backgroundColor: 'orange', color:'black', marginTop: 15}}>
 
 <View style={styles.container}>
 

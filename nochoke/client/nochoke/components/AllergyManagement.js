@@ -58,18 +58,18 @@ export default function AllergyManagement(props) {
                         styles.inputField
                     ]}
                 />
-                <Button title='Add Allergy' onPress={() => addAllergy()}
+                <Button title='Lägg till' onPress={() => addAllergy()}
                     style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} />
             </View>
             <View>
-                {props.allergies ?
+                {props.allergies > 0 ?
                     <View>
                         <Text style={{ color: 'white', textAlign: 'center', fontSize: 20 }}>
                             Klicka på en allergi för att ta bort den.
                             </Text>
                     </View>
                     :
-                    <Text style={{ color: 'white' }}>Wow such empty</Text>
+                    <Text style={{ color: 'white' }}></Text>
                 }
             </View>
         </ScrollView>
