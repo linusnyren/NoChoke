@@ -80,6 +80,7 @@ export default function ItemFactory(props){
             title={props.product.InformationOvrig ? props.product.InformationOvrig : "Ingen artikelbeskrivning"}
             styles={{ fontStyle: "italic", width: "90%", marginBottom: 10, marginTop: 10, fontWeight:"700", color: "#505e80", fontSize:12}}
         />
+        
         <Image style={{ width: '100%', height: 300 }}
                     source={{ uri: props.product.Bilder[0].Lank }}
                     resizeMode="contain"

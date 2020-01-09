@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.awt.event.ActionEvent;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,13 +25,7 @@ public class UserService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    void sendWelcomeMail(String to, String userName) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(to);
-        simpleMailMessage.setSubject("Välkommen till NoChoke, " + userName);
-        simpleMailMessage.setText("VÄLKOMMEEEEN");
-        javaMailSender.send(simpleMailMessage);
-    }
+
 
     public UserEntity addUser(UserEntity userEntity) {
         userRepository.save(userEntity);
@@ -67,6 +67,13 @@ public class UserService {
         userEntity.getAllergies().remove(allergy);
         userRepository.save(userEntity);
         return userEntity;
+    }
+    void sendWelcomeMail(String to, String userName) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(to);
+        simpleMailMessage.setSubject("Välkommen till NoChoke, " + userName);
+        simpleMailMessage.setText("VÄLKOMMEEEEN");
+        javaMailSender.send(simpleMailMessage);
     }
 
 }

@@ -69,9 +69,11 @@ else{
                 
             </Text>
                    {history.length > 0 ? history.map(x =>
+                   {x.Bilder[0].Lank ? 
                     <View key={x.id} style={{backgroundColor: "orange"}}>
                             <ItemFactory product={x}/>
-                    </View>) :
+                    </View>
+                   :<Text></Text>}) :
                     <View>
                         <Text style={styles.noHistory}>
                             När du skannar produkter så kommer din historik finnas här.
