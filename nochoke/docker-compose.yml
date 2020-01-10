@@ -1,29 +1,24 @@
+
 version: "3"
 services:
   postgres:
-    image: postgres:latest
-    network_mode: bridge
-    container_name: postgres
-    expose:
-    - 5432
+    image: "postgres:11"
+    container_name: "my_postgres"
     ports:
-      - 5432:5432
+      - "54320:5432"
     environment:
-         - POSTGRES_PASSWORD=password
-         - POSTGRES_USER=postgres
-         - POSTGRES_DB=nochoke
+       POSTGRES_PASSWORD: password
+       POSTGRES_DB: nochoke
+
     restart: unless-stopped
-# APP*****************************************
-  springbootapp:
+  springboot:
+    command: mvn spring-boot:run
     build: .
-    network_mode: bridge
-    container_name: springbootapp
-    expose:
-      - 8080
     ports:
       - 8080:8080
-      - 5432:5432
+    expose:
+      - 8080
     depends_on:
-      - postgres
+      - "postgres"
     links:
       - postgres

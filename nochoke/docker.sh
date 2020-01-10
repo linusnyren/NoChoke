@@ -1,1 +1,0 @@
-docker run -d --name nochoke_postgres -p 54320:5432 -e POSTGRESUSER=docker -e POSTGRES_PASSWORD=password -e POSTGRES_DB=nochoke library/postgres && mvn clean && mvn install && docker build -t myorg/myapp . && docker run -p 8080:8080 -p 54320:54320 myorg/myapp .
