@@ -6,9 +6,12 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
+RUN apk update
+RUN apk add  maven
 RUN mvn install
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
+EXPOSE 5432/tcp
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency

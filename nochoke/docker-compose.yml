@@ -15,13 +15,14 @@ services:
     restart: unless-stopped
 # APP*****************************************
   springbootapp:
-    image: springbootapp:latest
+    build: .
     network_mode: bridge
     container_name: springbootapp
     expose:
       - 8080
     ports:
       - 8080:8080
+      - 5432:5432
     depends_on:
       - postgres
     links:
