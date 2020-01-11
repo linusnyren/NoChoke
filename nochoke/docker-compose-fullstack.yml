@@ -1,0 +1,39 @@
+
+version: "3"
+services:
+  postgres:
+    image: "postgres:11"
+    container_name: "my_postgres"
+    ports:
+      - "54320:5432"
+    environment:
+       POSTGRES_PASSWORD: password
+       POSTGRES_DB: nochoke
+
+    restart: unless-stopped
+  springboot:
+    command: mvn spring-boot:run
+    build: .
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - "postgres"
+    links:
+      - postgres
+  expo:
+    build:
+      context: .
+      dockerfile: Dockerfile-expo
+    command: npm start
+    ports:
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002
+    expose:
+      - 19000
+      - 19001
+      - 19002
+    depends_on:
+      - springboot

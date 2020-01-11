@@ -1,0 +1,23 @@
+# Pull base image.
+FROM ubuntu:14.04
+#Expose ports
+EXPOSE 19000
+EXPOSE 19001
+# Install Node.js
+RUN apt-get install --yes curl
+RUN curl --silent --location https://deb.nodesource.com/setup_12.x | sudo bash -
+RUN apt-get install --yes nodejs
+RUN apt-get install --yes build-essential
+#copy frontend project
+COPY client/nochoke .
+#Remove backendserver address and create new for docker-compose
+RUN rm -f BackendServerIP.js
+RUN touch BackendServerIP.js
+RUN echo "export default \"http://springboot:8080\"" >BackendServerIP.js
+
+#Install expo environment
+RUN rm -rf node_modules
+RUN npm -g install expo-cli
+RUN expo install expo-barcode-scanner
+RUN npm add @babel/runtime
+RUN npm install

@@ -74,3 +74,12 @@ Caused by: java.net.UnknownHostException: postgres
 	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:91)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:192)
 	... 50 common frames omitted
+2020-01-11 15:03:24,985 INFO org.springframework.boot.StartupInfoLogger [main] Starting NochokeApplication on Linus-Macbook-2.local with PID 13647 (started by LinusNyren in /Users/LinusNyren/Documents/Projekt_Entreprenörskap/NoChoke/NoChoke/nochoke)
+2020-01-11 15:03:24,991 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-01-11 15:03:25,674 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-01-11 15:03:25,758 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 74ms. Found 3 repository interfaces.
+2020-01-11 15:03:26,016 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-11 15:03:26,226 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2020-01-11 15:03:26,234 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2020-01-11 15:03:26,234 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2020-01-11 15:03:26,235 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.27]
