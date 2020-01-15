@@ -1,5 +1,6 @@
 import React, { useState, AsyncStorage } from 'react'
 import * as WebBrowser from 'expo-web-browser';
+import * as SecureStore from 'expo-secure-store';
 import { ScrollView, Text, Button } from 'react-native';
 
 export default function Greeting(props) {

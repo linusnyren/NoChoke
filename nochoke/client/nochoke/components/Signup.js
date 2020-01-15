@@ -1,19 +1,27 @@
 import React, { useState } from 'react'
-import * as WebBrowser from 'expo-web-browser';
-import { Button } from 'react-native-elements';
 import axios from 'react-native-axios'
-import { Input, Block } from 'galio-framework';
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import BackendServerIP from "../BackendServerIP"
+import AppNavigator from '../navigation/AppNavigator';
 export default function Signup(props) {
-    const [details, setDetails] = useState({ surname: null, lastname: null, email: null })
+    const [details, setDetails] = useState({ surname: null, lastname: null, email: null, password: null })
     const signup = () => {
-        axios.post(BackendServerIP+'/user/add', details)
+        axios.post(BackendServerIP+'/register', details)
             .then(res => {
+                console.log(res)
+                //_saveToStore(res.data)
+                //SecureStore.setItemAsync("token", res.data)
                 props.setUser(res.data)
                 props.setShow(false)
+                
             }
             )
+    }
+    const _saveToStore = async(data) =>{
+        await SecureStore.setItemAsync('secure_token','sahdkfjaskdflas$%^&');
+        const token = await SecureStore.getItemAsync('secure_token');
+        console.log(token); // output: sahdkfjaskdflas$%^&
     }
 
     const styles = StyleSheet.create({
@@ -100,7 +108,7 @@ export default function Signup(props) {
                         selectionColor='white'
                         autoCorrect={false}
                         onChange={e =>
-                            null}
+                            setDetails({...details, password: e.nativeEvent.text})}
                         style={[
                             { color: 'white', borderBottomColor: 'white' },
                             styles.inputField

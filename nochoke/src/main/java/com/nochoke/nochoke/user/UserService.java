@@ -38,8 +38,14 @@ public class UserService {
 
 
     public String addUser(UserEntity userEntity) {
-        userRepository.save(userEntity);
-        return jwtGenerator.generate(userEntity);
+        UserEntity userEntity1 = userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword());
+        if(userEntity1 == null){
+            userRepository.save(userEntity);
+            return jwtGenerator.generate(userEntity);
+        }
+        else{
+            return jwtGenerator.generate(userEntity1);
+        }
     }
 
     public UserEntityDTO changeUserEmail(String email) {

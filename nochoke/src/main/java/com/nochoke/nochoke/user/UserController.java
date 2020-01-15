@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(@RequestBody UserEntityCredentials userEntityCredentials){
         return userService.login(userEntityCredentials);
     }

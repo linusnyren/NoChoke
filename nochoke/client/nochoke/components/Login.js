@@ -5,19 +5,22 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Signup from './Signup';
 import AppNavigator from '../navigation/AppNavigator';
 import Greeting from './Greeting';
+import BackendServerIP from '../BackendServerIP'
+import axios from 'react-native-axios'
 
 
 
 export default function Login() {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState()
-    const [email, setEmail] = useState()
+    const [credentials, setCredentials] = useState({email: null, password: null})
     const [loggedin, setLoggedin] = useState(false)
 
 
 
     const login = () => {
-        setLoggedin(true)
+        axios.post(BackendServerIP, credentials)
+            .then(res => console.log(res.data))
     }
 
     const styles = StyleSheet.create({
@@ -114,7 +117,7 @@ export default function Login() {
                                 autoCorrect={false}
                                 defaultValue={user ? user.email : ''}
                                 onChange={e =>
-                                    setEmail(e.nativeEvent.text)}
+                                    setCredentials({...credentials, email: e.nativeEvent.text})}
                                 style={[
                                     { color: 'white', borderBottomColor: 'white' },
                                     styles.inputField
@@ -128,7 +131,7 @@ export default function Login() {
                                 autoCorrect={false}
                                 defaultValue={user ? user.email : ''}
                                 onChange={e =>
-                                    setEmail(e.nativeEvent.text)}
+                                    setCredentials({...credentials, password: e.nativeEvent.text})}
                                 style={[
                                     { color: 'white', borderBottomColor: 'white' },
                                     styles.inputField
@@ -155,43 +158,6 @@ export default function Login() {
 
                 </View>
             </KeyboardAvoidingView>
-
-
-            /*
-                        <ScrollView style={{ backgroundColor: 'white' }}>
-                            <Greeting />
-                            <View style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
-                                
-                                <Input inputStyle={{ color: 'black' }} label='Email' defaultValue={user ? user.email : ''}
-                                    onChange={e =>
-                                    setEmail(e.nativeEvent.text)} /> 
-            
-                                <Input placeholder="Email"
-                                    defaultValue={user ? user.email : ''}
-                                    onChange={e =>
-                                        setEmail(e.nativeEvent.text)}
-                                    rounded
-                                />
-                                <Input placeholder="Password" password
-                                    defaultValue={user ? user.email : ''}
-                                    onChange={e =>
-                                        setEmail(e.nativeEvent.text)}
-                                    rounded
-                                />
-                                <Button title='Login' onPress={() => login()}
-                                    buttonStyle={{ backgroundColor: 'orange', borderRadius: 10 }}
-                                    style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} />
-            
-            
-                            </View>
-                            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>
-                                First time here?
-                        </Text>
-                            <Button titleStyle={{ color: 'orange' }} type='clear' title='Register'
-                                style={{ padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(!show)} />
-                        </ScrollView>
-                                    */
-
         )
     }
     if (show) {
