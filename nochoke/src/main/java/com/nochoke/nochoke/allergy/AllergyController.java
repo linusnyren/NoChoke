@@ -17,12 +17,12 @@ public class AllergyController {
         return allergyService.getEANProduct(EAN).toString();
     }
 
-    @GetMapping("/rest/okToEat/{token}/{EAN}")
-    public String okToEat(@PathVariable String token, @PathVariable String EAN){
-        return allergyService.okToEat(token, EAN).toString();
+    @GetMapping("/rest/okToEat/{EAN}")
+    public String okToEat(@PathVariable String EAN){
+        return allergyService.okToEat(EAN).toString();
     }
-    @GetMapping("/rest/getHistory/{token}")
-    public String getHistory(@PathVariable String token){
-        return allergyService.getHistory(token).toString();
+    @GetMapping("/rest/getHistory/")
+    public String getHistory(){
+        return allergyService.getHistory().toString();
     }
 }

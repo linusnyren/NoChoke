@@ -3,6 +3,7 @@ package com.nochoke.nochoke.allergy;
 import com.nochoke.nochoke.apicaller.EAN_APICaller;
 import com.nochoke.nochoke.history.History;
 import com.nochoke.nochoke.history.HistoryService;
+import com.nochoke.nochoke.security.JwtUserDetails;
 import com.nochoke.nochoke.security.JwtValidator;
 import com.nochoke.nochoke.user.UserEntity;
 import com.nochoke.nochoke.user.UserService;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,8 +40,8 @@ public class AllergyService {
         return ean_apiCaller.getProductByEan(ean);
     }
 
-    public JSONObject okToEat(String token, String ean){
-        UserEntity user = userService.getUserById(jwtValidator.validate(token).getId());
+    public JSONObject okToEat(String ean){
+        UserEntity user = userService.getUserById(getLoggedInUserId());
         History history = new History(ean, LocalDateTime.now().toString());
         historyService.saveHistory(history);
         user.getHistoryList().add(history);
@@ -57,8 +59,8 @@ public class AllergyService {
         }
     }
 
-    public JSONObject getHistory(String token){
-        UserEntity user = userService.getUserById(jwtValidator.validate(token).getId());
+    public JSONObject getHistory(){
+        UserEntity user = userService.getUserById(getLoggedInUserId());
         JSONArray jsonArray = new JSONArray();
         try {
             for (History history : user.getHistoryList()) {
@@ -94,5 +96,10 @@ public class AllergyService {
             logger.error(SMTP_TRIGGER, e.getMessage());
             return null;
         }
+    }
+    public long getLoggedInUserId(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        JwtUserDetails jwtUserDetails = (JwtUserDetails) principal;
+        return jwtUserDetails.getId();
     }
 }

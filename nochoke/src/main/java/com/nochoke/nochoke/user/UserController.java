@@ -23,29 +23,22 @@ public class UserController {
     public String login(@RequestBody UserEntityCredentials userEntityCredentials){
         return userService.login(userEntityCredentials);
     }
-    @GetMapping("/rest/getuser/{token}")
-    public UserEntityDTO getUser(@PathVariable String token){
-        return userService.getUserByToken(token);
+    @GetMapping("/rest/getuser/")
+    public UserEntityDTO getUser(){
+        return userService.getUserByToken();
     }
 
-    @PostMapping("/rest/addAllergy/{token}")
-    public UserEntityDTO addAllergyToUser(@RequestBody Allergy allergy, @PathVariable String token){
-        return userService.addAllergyToUser(allergy, token);
+    @PostMapping("/rest/addAllergy/")
+    public UserEntityDTO addAllergyToUser(@RequestBody Allergy allergy){
+        return userService.addAllergyToUser(allergy);
     }
-    @PostMapping("/rest/removeAllergy/{token}")
-    public UserEntityDTO removeAllergyFromUser(@RequestBody Allergy allergy, @PathVariable String token){
-        return userService.removeAllergyFromUser(allergy, token);
-    }
-
-    @PutMapping("/rest/changeUserEmail/{token}")
-    public UserEntityDTO changeUserEmail(@RequestBody String email, @PathVariable String token) {
-        System.out.println(email.toString());
-        return userService.changeUserEmail(email, token);
+    @PostMapping("/rest/removeAllergy/")
+    public UserEntityDTO removeAllergyFromUser(@RequestBody Allergy allergy){
+        return userService.removeAllergyFromUser(allergy);
     }
 
-    @GetMapping("/rest/getall")
-    public List<UserEntity> getAll(){
-        return userService.getAll();
+    @PutMapping("/rest/changeUserEmail/")
+    public UserEntityDTO changeUserEmail(@RequestBody String email) {
+        return userService.changeUserEmail(email);
     }
-
 }
