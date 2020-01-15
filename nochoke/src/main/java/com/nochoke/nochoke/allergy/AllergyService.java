@@ -3,6 +3,7 @@ package com.nochoke.nochoke.allergy;
 import com.nochoke.nochoke.apicaller.EAN_APICaller;
 import com.nochoke.nochoke.history.History;
 import com.nochoke.nochoke.history.HistoryService;
+import com.nochoke.nochoke.security.JwtValidator;
 import com.nochoke.nochoke.user.UserEntity;
 import com.nochoke.nochoke.user.UserService;
 import org.json.JSONArray;
@@ -30,13 +31,15 @@ public class AllergyService {
     UserService userService;
     @Autowired
     HistoryService historyService;
+    @Autowired
+    JwtValidator jwtValidator;
 
     public JSONObject getEANProduct(String ean){
         return ean_apiCaller.getProductByEan(ean);
     }
 
-    public JSONObject okToEat(long userId, String ean){
-        UserEntity user = userService.getUser(userId);
+    public JSONObject okToEat(String token, String ean){
+        UserEntity user = userService.getUserById(jwtValidator.validate(token).getId());
         History history = new History(ean, LocalDateTime.now().toString());
         historyService.saveHistory(history);
         user.getHistoryList().add(history);
@@ -54,8 +57,8 @@ public class AllergyService {
         }
     }
 
-    public JSONObject getHistory(long userid){
-        UserEntity user = userService.getUser(userid);
+    public JSONObject getHistory(String token){
+        UserEntity user = userService.getUserById(jwtValidator.validate(token).getId());
         JSONArray jsonArray = new JSONArray();
         try {
             for (History history : user.getHistoryList()) {

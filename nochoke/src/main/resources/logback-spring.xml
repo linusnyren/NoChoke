@@ -8,7 +8,6 @@
         <asynchronousSending>false</asynchronousSending>
         <username>nochokeapplication@gmail.com</username>
         <password>Sebbe123</password>
-        <to>billing.sebastian@icloud.com</to>
         <from>nochokeapplication@gmail.com</from>
         <subject>ERROR: %logger{20} - %m</subject>
         <layout class="ch.qos.logback.classic.PatternLayout">

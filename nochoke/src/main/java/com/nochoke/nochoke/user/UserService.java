@@ -2,6 +2,8 @@ package com.nochoke.nochoke.user;
 
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
+import com.nochoke.nochoke.security.JwtGenerator;
+import com.nochoke.nochoke.security.JwtValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,56 +26,67 @@ public class UserService {
     AllergyRepository allergyRepository;
     @Autowired
     JavaMailSender javaMailSender;
+    @Autowired
+    JwtGenerator jwtGenerator;
+    @Autowired
+    JwtValidator jwtValidator;
 
 
 
-    public UserEntity addUser(UserEntity userEntity) {
+    public String addUser(UserEntity userEntity) {
         userRepository.save(userEntity);
-        sendWelcomeMail(userEntity.getEmail().toLowerCase(), userEntity.getSurname());
-        return userEntity;
+        return jwtGenerator.generate(userEntity);
     }
 
-    public UserEntity changeUserEmail(String email, long id) {
-        UserEntity user = userRepository.findById(id);
+    public UserEntityDTO changeUserEmail(String email, String token) {
+        UserEntity user = userRepository.findById(jwtValidator.validate(token).getId());
         user.setEmail(email);
-        return user;
+        return new UserEntityDTO(user);
     }
 
     public void changeUserPassword(String password, long id) {
         UserEntity user = userRepository.findById(id);
     }
 
-    public UserEntity addAllergyToUser(Allergy allergy, long userid) {
-        UserEntity user = userRepository.findById(userid);
+    public UserEntityDTO addAllergyToUser(Allergy allergy, String token) {
+        UserEntity user = userRepository.findById(jwtValidator.validate(token).getId());
         user.addAllergyToUser(allergy);
         allergyRepository.save(allergy);
         userRepository.save(user);
-        return user;
+        return new UserEntityDTO(user);
     }
-    public UserEntity getUser(long id){
+    public String login(UserEntityCredentials userEntityCredentials){
+        UserEntity userEntity = userRepository.findByEmailAndPassword(userEntityCredentials.getEmail(), userEntityCredentials.getPassword());
+        String jwt = jwtGenerator.generate(userEntity);
+        return jwt;
+    }
+    public UserEntityDTO getUser(UserEntity userEntity){
+        return new UserEntityDTO(userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword()));
+    }
+    public UserEntityDTO getUserByToken(String token){
+        UserEntity userEntity = jwtValidator.validate(token);
+        return new UserEntityDTO(userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword()));
+    }
+    public UserEntity getUserById(long id){
         return userRepository.findById(id);
-    }
-
-    public UserEntity login(String email) {
-        return userRepository.findByEmail(email);
     }
 
     public List<UserEntity> getAll() {
         return userRepository.findAll();
     }
 
-    public UserEntity removeAllergyFromUser(Allergy allergy, long userid) {
-        UserEntity userEntity = userRepository.findById(userid);
+    public UserEntityDTO removeAllergyFromUser(Allergy allergy, String token) {
+        UserEntity userEntity = userRepository.findById(jwtValidator.validate(token).getId());
         userEntity.getAllergies().remove(allergy);
         userRepository.save(userEntity);
-        return userEntity;
+        return new UserEntityDTO(userEntity);
     }
     void sendWelcomeMail(String to, String userName) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        /*SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject("Välkommen till NoChoke, " + userName);
         simpleMailMessage.setText("VÄLKOMMEEEEN");
-        javaMailSender.send(simpleMailMessage);
+        javaMailSender.send(simpleMailMessage);*/
     }
 
 }

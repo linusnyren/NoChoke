@@ -12,17 +12,17 @@ public class AllergyController {
     @Autowired
     AllergyService allergyService;
 
-    @GetMapping("getEan/{EAN}")
+    @GetMapping("/rest/getEan/{EAN}")
     public String getEANProduct(@PathVariable String EAN){
         return allergyService.getEANProduct(EAN).toString();
     }
 
-    @GetMapping("/okToEat/{userid}/{EAN}")
-    public String okToEat(@PathVariable long userid, @PathVariable String EAN){
-        return allergyService.okToEat(userid, EAN).toString();
+    @GetMapping("/rest/okToEat/{token}/{EAN}")
+    public String okToEat(@PathVariable String token, @PathVariable String EAN){
+        return allergyService.okToEat(token, EAN).toString();
     }
-    @GetMapping("/getHistory/{userid}")
-    public String getHistory(@PathVariable long userid){
-        return allergyService.getHistory(userid).toString();
+    @GetMapping("/rest/getHistory/{token}")
+    public String getHistory(@PathVariable String token){
+        return allergyService.getHistory(token).toString();
     }
 }

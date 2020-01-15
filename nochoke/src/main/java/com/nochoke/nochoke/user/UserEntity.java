@@ -19,7 +19,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotNull
-    private String surname, lastname, email;
+    private String surname, lastname, email, password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Allergy> allergies;
@@ -27,10 +27,11 @@ public class UserEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<History> historyList;
 
-    public UserEntity(String surname, String lastname, String email) {
+    public UserEntity(String surname, String lastname, String email, String password) {
         this.surname = surname;
         this.lastname = lastname;
         this.email = email;
+        this.password = password;
     }
     public void addAllergyToUser(Allergy allergy){
         this.allergies.add(allergy);

@@ -4,6 +4,7 @@ package com.nochoke.nochoke.integrationtests;
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
 import com.nochoke.nochoke.user.UserEntity;
+import com.nochoke.nochoke.user.UserEntityCredentials;
 import com.nochoke.nochoke.user.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +42,7 @@ class BarcodeAPI {
     }
     @Test
     void addUserWIthAllergies(){
-        UserEntity user = new UserEntity("Linus", "Nyrén", "linusny@hotmail.com");
+        UserEntity user = new UserEntity("Linus", "Nyrén", "linusny@hotmail.com", "Lösenord");
         List<Allergy> allergies = new ArrayList<>();
         allergies.add(new Allergy("Jordnötter"));
         user.setAllergies(allergies);

@@ -13,36 +13,37 @@ public class UserController {
     UserService userService;
 
     @CrossOrigin
-    @PostMapping("/user/add")
-    public UserEntity addUser(@RequestBody UserEntity userEntity){
+    @PostMapping("/register")
+    public String addUser(@RequestBody UserEntity userEntity){
         return userService.addUser(userEntity);
     }
-    @PostMapping("/user/addAllergy/{userid}")
-    public UserEntity addAllergyToUser(@RequestBody Allergy allergy, @PathVariable long userid){
-        return userService.addAllergyToUser(allergy, userid);
+
+    @CrossOrigin
+    @GetMapping("/login")
+    public String login(@RequestBody UserEntityCredentials userEntityCredentials){
+        return userService.login(userEntityCredentials);
     }
-    @PostMapping("/user/removeAllergy/{userid}")
-    public UserEntity removeAllergyFromUser(@RequestBody Allergy allergy, @PathVariable long userid){
-        return userService.removeAllergyFromUser(allergy, userid);
+    @GetMapping("/rest/getuser/{token}")
+    public UserEntityDTO getUser(@PathVariable String token){
+        return userService.getUserByToken(token);
     }
 
-    @PutMapping("user/changeUserEmail/{userid}")
-    public UserEntity changeUserEmail(@RequestBody String email, @PathVariable long userid) {
+    @PostMapping("/rest/addAllergy/{token}")
+    public UserEntityDTO addAllergyToUser(@RequestBody Allergy allergy, @PathVariable String token){
+        return userService.addAllergyToUser(allergy, token);
+    }
+    @PostMapping("/rest/removeAllergy/{token}")
+    public UserEntityDTO removeAllergyFromUser(@RequestBody Allergy allergy, @PathVariable String token){
+        return userService.removeAllergyFromUser(allergy, token);
+    }
+
+    @PutMapping("/rest/changeUserEmail/{token}")
+    public UserEntityDTO changeUserEmail(@RequestBody String email, @PathVariable String token) {
         System.out.println(email.toString());
-        return userService.changeUserEmail(email, userid);
+        return userService.changeUserEmail(email, token);
     }
 
-    @GetMapping("user/get/{userId}")
-    public UserEntity getUser(@PathVariable long userId){
-        return userService.getUser(userId);
-    }
-
-    @GetMapping("user/login/{email}")
-    public UserEntity login(@PathVariable String email){
-        return userService.login(email);
-    }
-
-    @GetMapping("user/getall")
+    @GetMapping("/rest/getall")
     public List<UserEntity> getAll(){
         return userService.getAll();
     }
