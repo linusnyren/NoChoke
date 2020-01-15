@@ -4,13 +4,28 @@ import axios from 'react-native-axios';
 import { Input, Button } from 'react-native-elements';
 import AllergyManagement from '../components/AllergyManagement';
 import AllergyList from '../components/AllergyList'
-import BackendServerIp from '../BackendServerIP'
+import BackendServerIP from '../BackendServerIP'
+import * as SecureStore from 'expo-secure-store';
 export default function AllergyManagementScreen(){
     const [allergies, setAllergies] = useState()
 
+    const getUser = async() =>{
+        const token = await SecureStore.getItemAsync('token');
+        const headers = {
+            Authorisation: "Token " +token
+        }
+        await axios.get(BackendServerIP+"/rest/getuser/", {headers: headers})
+        .then(res => {
+                setAllergies(res.data.allergies)
+                }
+            )
+    }
+    
     useEffect(() => {
-        axios.get(BackendServerIp+"/user/get/1")
-            .then(res => setAllergies(res.data.allergies))
+        async function getToken(){
+            await getUser()
+        }
+        getToken();
     })
 
     return(

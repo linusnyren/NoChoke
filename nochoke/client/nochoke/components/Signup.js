@@ -8,21 +8,18 @@ export default function Signup(props) {
     const [details, setDetails] = useState({ surname: null, lastname: null, email: null, password: null })
     const signup = () => {
         axios.post(BackendServerIP+'/register', details)
-            .then(res => {
-                console.log(res)
-                //_saveToStore(res.data)
-                //SecureStore.setItemAsync("token", res.data)
-                props.setUser(res.data)
-                props.setShow(false)
-                
-            }
-            )
+        .then(res => saveToStore(res.data.token))
     }
-    const _saveToStore = async(data) =>{
-        await SecureStore.setItemAsync('secure_token','sahdkfjaskdflas$%^&');
-        const token = await SecureStore.getItemAsync('secure_token');
-        console.log(token); // output: sahdkfjaskdflas$%^&
+    const saveToStore = async(data) =>{
+        await SecureStore.setItemAsync('token',data);
+        const token = await SecureStore.getItemAsync('token');
+        redirectUser()
     }
+    const redirectUser = () =>{
+        props.setLoggedin(true)
+        props.setShow(false)
+    }
+
 
     const styles = StyleSheet.create({
         submitButton: {

@@ -7,6 +7,7 @@ import AppNavigator from '../navigation/AppNavigator';
 import Greeting from './Greeting';
 import BackendServerIP from '../BackendServerIP'
 import axios from 'react-native-axios'
+import * as SecureStore from 'expo-secure-store';
 
 
 
@@ -19,10 +20,16 @@ export default function Login() {
 
 
     const login = () => {
-        axios.post(BackendServerIP, credentials)
-            .then(res => console.log(res.data))
+        axios.post(BackendServerIP+"/login", credentials)
+            .then(res => saveToStore(res.data.token))
     }
-
+    const saveToStore = async(data) =>{
+        await SecureStore.setItemAsync('token',data);
+        redirectUser()
+    }
+    const redirectUser = () =>{
+        setLoggedin(true)
+    }
     const styles = StyleSheet.create({
         wrapper: {
             display: "flex",
@@ -164,7 +171,7 @@ export default function Login() {
         return (
             <ScrollView style={{ backgroundColor: 'orange' }}>
                 <Greeting />
-                <Signup setUser={setUser.bind(this)} setShow={setShow.bind(this)} />
+                <Signup setUser={setUser.bind(this)} setShow={setShow.bind(this)} setLoggedin={setLoggedin.bind(this)} />
                 <Button titleStyle={{ color: 'white' }} type="clear" title='Göm' style={{ marginTop: 50, padding: 10, width: '50%', marginLeft: 'auto', marginRight: 'auto' }} onPress={() => setShow(!show)} />
             </ScrollView>
         )

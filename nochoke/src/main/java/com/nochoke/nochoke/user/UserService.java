@@ -5,6 +5,8 @@ import com.nochoke.nochoke.allergy.AllergyRepository;
 import com.nochoke.nochoke.security.JwtGenerator;
 import com.nochoke.nochoke.security.JwtUserDetails;
 import com.nochoke.nochoke.security.JwtValidator;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -36,16 +38,18 @@ public class UserService {
     JwtValidator jwtValidator;
 
 
-
-    public String addUser(UserEntity userEntity) {
+    public JSONObject register(UserEntity userEntity) throws JSONException {
         UserEntity userEntity1 = userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword());
         if(userEntity1 == null){
             userRepository.save(userEntity);
-            return jwtGenerator.generate(userEntity);
+            return new JSONObject().put("token", jwtGenerator.generate(userEntity));
         }
         else{
-            return jwtGenerator.generate(userEntity1);
+            return new JSONObject().put("token" ,jwtGenerator.generate(userEntity1));
         }
+    }
+    public void addUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
     public UserEntityDTO changeUserEmail(String email) {
@@ -65,10 +69,12 @@ public class UserService {
         userRepository.save(user);
         return new UserEntityDTO(user);
     }
-    public String login(UserEntityCredentials userEntityCredentials){
+    public JSONObject login(UserEntityCredentials userEntityCredentials) throws JSONException {
         UserEntity userEntity = userRepository.findByEmailAndPassword(userEntityCredentials.getEmail(), userEntityCredentials.getPassword());
         String jwt = jwtGenerator.generate(userEntity);
-        return jwt;
+        JSONObject json = new JSONObject();
+        json.put("token", jwt);
+        return json;
     }
     public UserEntityDTO getUser(UserEntity userEntity){
         return new UserEntityDTO(userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword()));
@@ -102,5 +108,6 @@ public class UserService {
         simpleMailMessage.setText("VÄLKOMMEEEEN");
         javaMailSender.send(simpleMailMessage);*/
     }
+
 
 }

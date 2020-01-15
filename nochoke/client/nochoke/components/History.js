@@ -5,17 +5,29 @@ import { Card, SimpleCard } from "@paraboly/react-native-card"
 import AnimatedLoader from "react-native-animated-loader";
 import ItemFactory from './ItemFactory.js';
 import BackendServerIP from "../BackendServerIP"
-
+import * as SecureStore from 'expo-secure-store';
 export default function History(){
     const [history, setHistory] = useState([])
     const [loading, setLoading] = useState(true)
-useEffect(() => {
-    axios.get(BackendServerIP+"/getHistory/1")
-    .then(res => {
-        setHistory(res.data.historyList)
-        setLoading(false)
-        })
-},[])
+
+    const getUser = async() =>{
+        const token = await SecureStore.getItemAsync('token');
+        const headers = {
+            Authorisation: "Token " +token
+        }
+        await axios.get(BackendServerIP+"/rest/getHistory/", {headers: headers})
+        .then(res => {
+                setHistory(res.data.historyList)
+                setLoading(false)
+                }
+            )
+    }
+    useEffect(() => {
+        async function getToken(){
+            await getUser()
+        }
+        getToken();
+    })
   const styles = StyleSheet.create({
     text:{
         fontSize: 20,
