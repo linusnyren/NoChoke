@@ -10,24 +10,14 @@ export default function History(){
     const [history, setHistory] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const getUser = async() =>{
-        const token = await SecureStore.getItemAsync('token');
-        const headers = {
-            Authorisation: "Token " +token
-        }
-        await axios.get(BackendServerIP+"/rest/getHistory/", {headers: headers})
+    useEffect(() => {
+        axios.get(BackendServerIP+"/rest/getHistory/")
         .then(res => {
                 setHistory(res.data.historyList)
                 setLoading(false)
                 }
             )
-    }
-    useEffect(() => {
-        async function getToken(){
-            await getUser()
-        }
-        getToken();
-    })
+    },[])
   const styles = StyleSheet.create({
     text:{
         fontSize: 20,
@@ -80,12 +70,11 @@ else{
                 "Du har ingen historik ännu."}
                 
             </Text>
-                   {history.length > 0 ? history.map(x =>
-                   {x.Bilder[0].Lank ? 
+                   {history.length > 0 ? history.map(x => 
                     <View key={x.id} style={{backgroundColor: "orange"}}>
                             <ItemFactory product={x}/>
                     </View>
-                   :<Text></Text>}) :
+                   ) :
                     <View>
                         <Text style={styles.noHistory}>
                             När du skannar produkter så kommer din historik finnas här.

@@ -52,9 +52,21 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public UserEntityDTO changeUserEmail(String email) {
+    public UserEntityDTO changeUser(UserEntity userEntity) {
         UserEntity user = userRepository.findById(getLoggedInUserId());
-        user.setEmail(email);
+        if(userEntity.getEmail() != null){
+            user.setEmail(userEntity.getEmail());
+        }
+        if(userEntity.getPassword() != null){
+            user.setPassword( userEntity.getPassword());
+        }
+        if(userEntity.getSurname() != null){
+            user.setSurname(userEntity.getSurname());
+        }
+        if(userEntity.getLastname() != null){
+            user.setLastname(userEntity.getLastname());
+        }
+        userRepository.save(user);
         return new UserEntityDTO(user);
     }
 

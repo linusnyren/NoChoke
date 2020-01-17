@@ -80,11 +80,14 @@ export default function ItemFactory(props){
             title={props.product.InformationOvrig ? props.product.InformationOvrig : "Ingen artikelbeskrivning"}
             styles={{ fontStyle: "italic", width: "90%", marginBottom: 10, marginTop: 10, fontWeight:"700", color: "#505e80", fontSize:12}}
         />
-        
+        {props.product.Bilder[0].Lank ? 
         <Image style={{ width: '100%', height: 300 }}
                     source={{ uri: props.product.Bilder[0].Lank }}
                     resizeMode="contain"
                 />
+        :
+        <Text>Ingen Bild</Text>
+        }
 <SimpleCard
   title={allergiResult(props.product)}
   styles={{ width: "90%", marginBottom: 20, marginTop: 20, fontWeight:"700", color: "#505e80", fontSize:12}}

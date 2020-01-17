@@ -7,28 +7,13 @@ import { ScrollView, Text, Button } from 'react-native';
 
 export default function Greeting(props) {
     const [user, setUser] = useState({})
-
-    const getUser = async() =>{
-        const token = await SecureStore.getItemAsync('token');
-        const headers = {
-            Authorisation: "Token " +token
-        }
-        await axios.get(BackendServerIP+"/rest/getuser/", {headers: headers})
+    useEffect(() => {
+        axios.get(BackendServerIP+"/rest/getuser/")
         .then(res => {
                 setUser(res.data)
-                saveToStore(res.data)
                 }
             )
-    }
-    const saveToStore = async(data) =>{
-        await SecureStore.setItemAsync('user',JSON.stringify(data));
-    }
-    useEffect(() => {
-        async function getToken(){
-            await getUser()
-        }
-        getToken();
-    })
+    }, [])
     return (
         <ScrollView style={{ backgroundColor: 'orange' }}>
             <Text style={{ color: 'white', marginTop: 100, marginLeft: 30, fontSize: 40, fontWeight: "900" }}>

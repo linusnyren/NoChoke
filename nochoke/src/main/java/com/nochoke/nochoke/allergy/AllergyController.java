@@ -18,7 +18,7 @@ public class AllergyController {
     }
 
     @GetMapping("/rest/okToEat/{EAN}")
-    public String okToEat(@PathVariable String EAN){
+    public String okToEat(@PathVariable String EAN) throws JSONException {
         return allergyService.okToEat(EAN).toString();
     }
     @GetMapping("/rest/getHistory/")

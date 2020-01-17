@@ -14,14 +14,18 @@ import * as SecureStore from 'expo-secure-store';
 export default function Login() {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState()
-    const [credentials, setCredentials] = useState({email: null, password: null})
+    const [credentials, setCredentials] = useState({email: "Linusny@hotmail.com", password: "Lösenord"})
     const [loggedin, setLoggedin] = useState(false)
 
 
 
     const login = () => {
         axios.post(BackendServerIP+"/login", credentials)
-            .then(res => saveToStore(res.data.token))
+            .then(res => {
+                axios.defaults.headers.common['Authorisation'] = "Token " +res.data.token;
+                redirectUser()
+                /*saveToStore(res.data.token)*/
+            })
     }
     const saveToStore = async(data) =>{
         await SecureStore.setItemAsync('token',data);

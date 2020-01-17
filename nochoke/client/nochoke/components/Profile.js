@@ -4,18 +4,23 @@ import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, ScrollView } f
 import BackendServerIP from "../BackendServerIP"
 import {stringifyValueWithProperty} from "react-native-web/dist/exports/StyleSheet/compile";
 export default function Profile(props) {
-    const [user, setUser] = useState({})
-    const [password, setPassword] = useState()
-    const [email, setEmail] = useState("")
-
-    useEffect(() => {
-        axios.get(BackendServerIP+"/user/get/1")
-            .then(res =>
-                setUser(res.data))
+    const [user, setUser] = useState({
+        surname: null,
+        lastname: null,
+        password: null,
+        email: null
     })
 
+    useEffect(() => {
+        axios.get(BackendServerIP+"/rest/getuser/")
+            .then(res =>
+                setUser(res.data))
+    },[])
+
     const changeAccountInformation = () => {
-        axios.put(BackendServerIP + '/user/changeUserEmail/1', {email})
+        axios.put(BackendServerIP + '/rest/changeUser/', user)
+        .then(res => setUser(res.data))
+        alert("Uppdaterad!")
     }
 
     const styles = StyleSheet.create({
@@ -54,6 +59,7 @@ export default function Profile(props) {
             marginLeft: 20,
             fontWeight: "600"
         },
+        inputStyle:{ color: 'white', borderBottomColor: 'white' }
     })
 
 
@@ -66,27 +72,27 @@ export default function Profile(props) {
                 <View style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}>
                     <View style={[styles.wrapper]}>
 
-                        <Text style={[{ color: 'grey' }, styles.label]}>Förnamn</Text>
+                        <Text style={[{ color: 'white' }, styles.label]}>Förnamn</Text>
                         <TextInput
-                            editable={false}
                             selectionColor='white'
                             autoCorrect={false}
                             value={user.surname}
+                            onChange={e => setUser({...user, surname: e.nativeEvent.text})}
                             style={[
-                                { color: 'grey', borderBottomColor: 'grey' },
+                                styles.inputStyle,
                                 styles.inputField
                             ]}
                         />
                     </View>
                     <View style={[styles.wrapper]}>
-                        <Text style={[{ color: 'grey' }, styles.label]}>Efternamn</Text>
+                        <Text style={[{ color: 'white' }, styles.label]}>Efternamn</Text>
                         <TextInput
-                            editable={false}
                             selectionColor='white'
                             autoCorrect={false}
                             value={user.lastname}
+                            onChange={e => setUser({...user, lastname: e.nativeEvent.text})}
                             style={[
-                                { color: 'grey', borderBottomColor: 'grey' },
+                                styles.inputStyle,
                                 styles.inputField
                             ]}
                         />
@@ -96,10 +102,10 @@ export default function Profile(props) {
                         <TextInput
                             selectionColor='white'
                             autoCorrect={false}
-                            onChange={e =>
-                                setEmail(e.nativeEvent.text )}
+                            value={user.email}
+                            onChange={e => setUser({...user, email: e.nativeEvent.text})}
                             style={[
-                                { color: 'white', borderBottomColor: 'white' },
+                                styles.inputStyle,
                                 styles.inputField
                             ]}
                         />
@@ -109,15 +115,16 @@ export default function Profile(props) {
                         <TextInput
                             selectionColor='white'
                             autoCorrect={false}
+                            onChange={e => setUser({...user, password: e.nativeEvent.text})}
                             style={[
-                                { color: 'white', borderBottomColor: 'white' },
+                                styles.inputStyle,
                                 styles.inputField
                             ]}
                         />
                     </View>
 
                     <Text style={[{ color: 'white' }, styles.submitButton]}
-                          onPress={changeAccountInformation}
+                          onPress={() => changeAccountInformation()}
                     >Spara</Text>
 
                 </View>
