@@ -8,14 +8,18 @@ export default function Signup(props) {
     const [details, setDetails] = useState({ surname: null, lastname: null, email: null, password: null })
     const signup = () => {
         axios.post(BackendServerIP+'/register', details)
-        .then(res => saveToStore(res.data.token))
+        .then(res => {
+            redirectUser(res.data.token)
+            /*saveToStore(res.data.token)*/
+        })
     }
-    const saveToStore = async(data) =>{
+    /*const saveToStore = async(data) =>{
         await SecureStore.setItemAsync('token',data);
         const token = await SecureStore.getItemAsync('token');
         redirectUser()
-    }
-    const redirectUser = () =>{
+    }*/
+    const redirectUser = (token) =>{
+        axios.defaults.headers.common['Authorisation'] = "Token " +token;
         props.setLoggedin(true)
         props.setShow(false)
     }
@@ -114,7 +118,7 @@ export default function Signup(props) {
                 </View>
 
                 <Text style={[{ color: 'white' }, styles.submitButton]}
-                    onPress={signup}
+                    onPress={() => signup()}
                 >Skapa</Text>
 
                 {/*

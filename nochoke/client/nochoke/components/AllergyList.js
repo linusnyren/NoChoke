@@ -5,15 +5,10 @@ import { Card, SimpleCard } from "@paraboly/react-native-card"
 import BackendServerIP from "../BackendServerIP"
 
 export default function AllergyList(props) {
-    const [allergies, setAllergies] = useState([])
-    useEffect(() => {
-        axios.get(BackendServerIP+"/user/get/1")
-            .then(res => setAllergies(res.data.allergies))
-    })
     const removeAllergy = (a) => {
-        axios.post(BackendServerIP+"/user/removeAllergy/1", a)
+        axios.post(BackendServerIP+"/rest/removeAllergy/", a)
             .then(res => {
-                setAllergies(res.data.allergies)
+                props.setAllergies(res.data.allergies)
             }
             )
     }
@@ -39,7 +34,7 @@ export default function AllergyList(props) {
         return (
             <ScrollView style={styles.container}>
             <View style={styles.container}>
-                    {allergies.length > 0 
+                    {props.allergies.length > 0 
                     ?
                     <View>
                         <Text style={styles.textOk}>Dina allergier</Text>
@@ -51,7 +46,7 @@ export default function AllergyList(props) {
                         <Text style={styles.textNotOk}>När allergier läggs till dyker de upp här</Text>
                     </View>
                     }
-                {allergies.map(a =>
+                {props.allergies.map(a =>
                     <SimpleCard key={a.id} 
                                 title={a.allergyName}
                                 onPress={() => removeAllergy(a)} />

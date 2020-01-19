@@ -6,11 +6,17 @@ import isEmpty from "react-native-web/dist/vendor/react-native/isEmpty";
 import BackendServerIP from "../BackendServerIP"
 
 export default function AllergyManagement(props) {
-    const [allergy, setAllergy] = useState()
+    const [allergy, setAllergy] = useState({
+        allergyName: null
+    })
     const addAllergy = () => {
         if(!isEmpty(allergy) && allergy != null) {
-            axios.post(BackendServerIP+"/user/addAllergy/1", {"allergyName": allergy})
-                .then(res => setAllergy(res.data.allergies))
+            console.log(allergy)
+            axios.post(BackendServerIP+"/rest/addAllergy/", allergy)
+                .then(res => {
+                    props.setAllergies(res.data.allergies)
+                    console.log(res.data.allergies)
+                })
         }
     }
 
@@ -52,7 +58,7 @@ export default function AllergyManagement(props) {
                     selectionColor='white'
                     autoCorrect={false}
                     onChange={e =>
-                        setAllergy(e.nativeEvent.text)}
+                        setAllergy({...allergy, allergyName : e.nativeEvent.text})}
                     style={[
                         { color: 'white', borderBottomColor: 'white' },
                         styles.inputField

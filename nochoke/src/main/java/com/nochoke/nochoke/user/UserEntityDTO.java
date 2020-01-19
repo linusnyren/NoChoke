@@ -20,5 +20,6 @@ public class UserEntityDTO extends UserEntity {
         this.lastname = userEntity.getLastname();
         this.allergies = userEntity.getAllergies();
         this.historyList = userEntity.getHistoryList();
+        this.email = userEntity.getEmail();
     }
 }

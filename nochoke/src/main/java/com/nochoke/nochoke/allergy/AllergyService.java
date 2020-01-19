@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AllergyService {
@@ -40,13 +41,15 @@ public class AllergyService {
         return ean_apiCaller.getProductByEan(ean);
     }
 
-    public JSONObject okToEat(String ean){
+    public JSONObject okToEat(String ean) throws JSONException {
         UserEntity user = userService.getUserById(getLoggedInUserId());
-        History history = new History(ean, LocalDateTime.now().toString());
-        historyService.saveHistory(history);
-        user.getHistoryList().add(history);
-        userService.addUser(user);
         JSONObject json = ean_apiCaller.getProductByEan(ean);
+        if(json.getJSONArray("Bilder").length() > 0){
+            History history = new History(ean, LocalDateTime.now().toString());
+            historyService.saveHistory(history);
+            user.getHistoryList().add(history);
+            userService.addUser(user);
+        }
         try {
             json.put("allergyList", allergyChecker(user.getAllergies(), json));
             json.put("ean", ean);

@@ -27,10 +27,10 @@ export default function ProductPage(props) {
           }
       });
 
-
-
     useEffect(() => {
-        axios.get(BackendServerIP+"/okToEat/1/"+props.barCode)
+        let EAN = "04018077778308"
+        //props.barCode
+        axios.get(BackendServerIP+"/rest/okToEat/"+props.barCode)
             .then(res => {
                 if(res.status === 200 && res.data.Bilder.length > 0){
                   setProduct(res.data)

@@ -1,5 +1,16 @@
 # NoChoke  
 ## A school assignment using a Springboot backend with an React Native app as frontend
+### This is build upon:
+Springboot  
+Spring security with JWT tokens    
+Spring MVC  
+Logger4J  
+Postgresql  
+H2 for tests  
+External API for barcode searching  
+Docker-compose for easy migration  
+
+Frontend build with react-native  
 
 ### Follow this minimal tutorial to get up and running!
 #### This project is dockerized so you got two alternatives

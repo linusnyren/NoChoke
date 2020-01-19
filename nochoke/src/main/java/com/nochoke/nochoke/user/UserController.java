@@ -39,8 +39,8 @@ public class UserController {
         return userService.removeAllergyFromUser(allergy);
     }
 
-    @PutMapping("/rest/changeUserEmail/")
-    public UserEntityDTO changeUserEmail(@RequestBody String email) {
-        return userService.changeUserEmail(email);
+    @PutMapping("/rest/changeUser/")
+    public UserEntityDTO changeUser(@RequestBody UserEntity userEntity) {
+        return userService.changeUser(userEntity);
     }
 }
