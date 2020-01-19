@@ -102,4 +102,25 @@ public class AllergyService {
         JwtUserDetails jwtUserDetails = (JwtUserDetails) principal;
         return jwtUserDetails.getId();
     }
+
+    public JSONObject searchText(String text) {
+        UserEntity user = userService.getUserById(getLoggedInUserId());
+        JSONArray apiArray = ean_apiCaller.getProductsByText(text);
+        JSONArray jsonArray = new JSONArray();
+        try {
+            for (int i = 0; i < apiArray.length(); i++) {
+                JSONObject tempJson = (JSONObject) apiArray.get(i);
+                String EAN = tempJson.getString("GTIN");
+                JSONObject json = ean_apiCaller.getProductByEan(EAN);
+                json.put("id", i);
+                json.put("allergyList", allergyChecker(user.getAllergies(), json));
+                jsonArray.put(json);
+            }
+            return new JSONObject().put("resultList", jsonArray);
+        }
+        catch(JSONException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

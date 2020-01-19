@@ -25,4 +25,8 @@ public class AllergyController {
     public String getHistory(){
         return allergyService.getHistory().toString();
     }
+    @GetMapping("rest/searchText/{text}")
+    public String searchText(@PathVariable String text){
+        return allergyService.searchText(text).toString();
+    }
 }
