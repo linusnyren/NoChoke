@@ -3,9 +3,9 @@ package com.nochoke.nochoke.allergy;
 import com.nochoke.nochoke.apicaller.EAN_APICaller;
 import com.nochoke.nochoke.history.History;
 import com.nochoke.nochoke.history.HistoryService;
-import com.nochoke.nochoke.security.JwtUserDetails;
 import com.nochoke.nochoke.security.JwtValidator;
 import com.nochoke.nochoke.user.UserEntity;
+import com.nochoke.nochoke.user.UserLoggedIn;
 import com.nochoke.nochoke.user.UserService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,12 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AllergyService {
@@ -42,7 +40,7 @@ public class AllergyService {
     }
 
     public JSONObject okToEat(String ean) throws JSONException {
-        UserEntity user = userService.getUserById(getLoggedInUserId());
+        UserEntity user = userService.getUserById(UserLoggedIn.getID());
         JSONObject json = ean_apiCaller.getProductByEan(ean);
         if(json.getJSONArray("Bilder").length() > 0){
             History history = new History(ean, LocalDateTime.now().toString());
@@ -63,7 +61,7 @@ public class AllergyService {
     }
 
     public JSONObject getHistory(){
-        UserEntity user = userService.getUserById(getLoggedInUserId());
+        UserEntity user = userService.getUserById(UserLoggedIn.getID());
         JSONArray jsonArray = new JSONArray();
         try {
             for (History history : user.getHistoryList()) {
@@ -100,14 +98,9 @@ public class AllergyService {
             return null;
         }
     }
-    public long getLoggedInUserId(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        JwtUserDetails jwtUserDetails = (JwtUserDetails) principal;
-        return jwtUserDetails.getId();
-    }
 
     public JSONObject searchText(String text) {
-        UserEntity user = userService.getUserById(getLoggedInUserId());
+        UserEntity user = userService.getUserById(UserLoggedIn.getID());
         JSONArray apiArray = ean_apiCaller.getProductsByText(text);
         JSONArray jsonArray = new JSONArray();
         try {

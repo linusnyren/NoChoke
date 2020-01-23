@@ -3,23 +3,12 @@ package com.nochoke.nochoke.user;
 import com.nochoke.nochoke.allergy.Allergy;
 import com.nochoke.nochoke.allergy.AllergyRepository;
 import com.nochoke.nochoke.security.JwtGenerator;
-import com.nochoke.nochoke.security.JwtUserDetails;
 import com.nochoke.nochoke.security.JwtValidator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.awt.event.ActionEvent;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -53,7 +42,7 @@ public class UserService {
     }
 
     public UserEntityDTO changeUser(UserEntity userEntity) {
-        UserEntity user = userRepository.findById(getLoggedInUserId());
+        UserEntity user = userRepository.findById(UserLoggedIn.getID());
         if(userEntity.getEmail() != null){
             user.setEmail(userEntity.getEmail());
         }
@@ -75,7 +64,7 @@ public class UserService {
     }
 
     public UserEntityDTO addAllergyToUser(Allergy allergy) {
-        UserEntity user = userRepository.findById(getLoggedInUserId());
+        UserEntity user = userRepository.findById(UserLoggedIn.getID());
         user.addAllergyToUser(allergy);
         allergyRepository.save(allergy);
         userRepository.save(user);
@@ -92,7 +81,7 @@ public class UserService {
         return new UserEntityDTO(userRepository.findByEmailAndPassword(userEntity.getEmail(), userEntity.getPassword()));
     }
     public UserEntityDTO getUserByToken(){
-        return new UserEntityDTO(userRepository.findById(getLoggedInUserId()));
+        return new UserEntityDTO(userRepository.findById(UserLoggedIn.getID()));
     }
     public UserEntity getUserById(long id){
         return userRepository.findById(id);
@@ -103,15 +92,10 @@ public class UserService {
     }
 
     public UserEntityDTO removeAllergyFromUser(Allergy allergy) {
-        UserEntity userEntity = userRepository.findById(getLoggedInUserId());
+        UserEntity userEntity = userRepository.findById(UserLoggedIn.getID());
         userEntity.getAllergies().remove(allergy);
         userRepository.save(userEntity);
         return new UserEntityDTO(userEntity);
-    }
-    public long getLoggedInUserId(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        JwtUserDetails jwtUserDetails = (JwtUserDetails) principal;
-        return jwtUserDetails.getId();
     }
     void sendWelcomeMail(String to, String userName) {
         /*SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
