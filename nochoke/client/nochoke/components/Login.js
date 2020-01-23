@@ -7,32 +7,20 @@ import AppNavigator from '../navigation/AppNavigator';
 import Greeting from './Greeting';
 import BackendServerIP from '../BackendServerIP'
 import axios from 'react-native-axios'
-import * as SecureStore from 'expo-secure-store';
-
 
 
 export default function Login() {
     const [show, setShow] = useState(false)
     const [user, setUser] = useState()
-    const [credentials, setCredentials] = useState({email: "Linusny@hotmail.com", password: "Lösenord"})
+    const [credentials, setCredentials] = useState({email: null, password: null})
     const [loggedin, setLoggedin] = useState(false)
-
-
 
     const login = () => {
         axios.post(BackendServerIP+"/login", credentials)
             .then(res => {
                 axios.defaults.headers.common['Authorisation'] = "Token " +res.data.token;
-                redirectUser()
-                /*saveToStore(res.data.token)*/
+                setLoggedin(true)
             })
-    }
-    const saveToStore = async(data) =>{
-        await SecureStore.setItemAsync('token',data);
-        redirectUser()
-    }
-    const redirectUser = () =>{
-        setLoggedin(true)
     }
     const styles = StyleSheet.create({
         wrapper: {
