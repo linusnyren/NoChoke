@@ -19,20 +19,10 @@ export default function ItemFactory(props){
           }
       });
       function textFormat(x){
-          if(x.contain){
-              return "Innehåller "+x.allergyName +"\n"
-          }
-          else{
-              return "Innehåller inte "+x.allergyName +"\n"
-          }
+          return x.contain ? "Innehåller "+x.allergyName+"\n" : "Innehåller inte "+x.allergyName +"\n";
       }
       function allergiResult(x){
-          if(x.allergyList.length > 0){
-              return "Allergier \n" +x.allergyList.map(x => textFormat(x))
-          }
-          else{
-              return "Du har inte lagt till några allergier ännu"
-          }
+          return x.allergyList.length > 0 ? "Allergier \n" +x.allergyList.map(x => textFormat(x)) : "Du har inte lagt till några allergier ännu"
       }
       function formatDate(x){
         let date = new Date(x)
@@ -52,48 +42,43 @@ export default function ItemFactory(props){
           return string;
       }
     return(
-            
             <ScrollView style={{backgroundColor: 'orange', color:'black', marginTop: 15}}>
-
-<View style={styles.container}>
-
-
-        <Card
-          iconDisable
-          title={props.product.Varumarke.Varumarke}
-          onPress={() => {}}
-          borderRadius={20}
-          iconBackgroundColor="#fcd"
-          content= {formatContentText(props.product)}
-          topRightStyle={{
-            fontSize: 12,
-            fontWeight: "700",
-            color: "#505e80"
-          }}
-          bottomRightStyle={{
-            fontSize: 16,
-            fontWeight: "bold",
-            color: "#505e80"
-          }}
-        />
-        <SimpleCard
-            title={props.product.InformationOvrig ? props.product.InformationOvrig : "Ingen artikelbeskrivning"}
-            styles={{ fontStyle: "italic", width: "90%", marginBottom: 10, marginTop: 10, fontWeight:"700", color: "#505e80", fontSize:12}}
-        />
-        {props.product.Bilder[0].Lank ? 
-        <Image style={{ width: '100%', height: 300 }}
-                    source={{ uri: props.product.Bilder[0].Lank }}
-                    resizeMode="contain"
-                />
-        :
-        <Text>Ingen Bild</Text>
-        }
-<SimpleCard
-  title={allergiResult(props.product)}
-  styles={{ width: "90%", marginBottom: 20, marginTop: 20, fontWeight:"700", color: "#505e80", fontSize:12}}
-/>
-      </View>
-            </ScrollView>
-
+                <View style={styles.container}>
+                  <Card
+                    iconDisable
+                    title={props.product.Varumarke.Varumarke}
+                    onPress={() => {}}
+                    borderRadius={20}
+                    iconBackgroundColor="#fcd"
+                    content= {formatContentText(props.product)}
+                    topRightStyle={{
+                      fontSize: 12,
+                      fontWeight: "700",
+                      color: "#505e80"
+                    }}
+                    bottomRightStyle={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      color: "#505e80"
+                    }}
+                  />
+                  <SimpleCard
+                      title={props.product.InformationOvrig ? props.product.InformationOvrig : "Ingen artikelbeskrivning"}
+                      styles={{ fontStyle: "italic", width: "90%", marginBottom: 10, marginTop: 10, fontWeight:"700", color: "#505e80", fontSize:12}}
+                  />
+                  {props.product.Bilder[0].Lank ? 
+                  <Image style={{ width: '100%', height: 300 }}
+                              source={{ uri: props.product.Bilder[0].Lank }}
+                              resizeMode="contain"
+                          />
+                  :
+                  <Text>Ingen Bild</Text>
+                  }
+                  <SimpleCard
+                      title={allergiResult(props.product)}
+                      styles={{ width: "90%", marginBottom: 20, marginTop: 20, fontWeight:"700", color: "#505e80", fontSize:12}}
+                  />
+                </View>
+              </ScrollView>
     )
 }

@@ -1,11 +1,9 @@
 import React,{useEffect, useState} from 'react'
 import {View, Text, StyleSheet, ScrollView, Image, Tooltip} from 'react-native'
 import axios from 'react-native-axios'
-import { Card, SimpleCard } from "@paraboly/react-native-card"
 import AnimatedLoader from "react-native-animated-loader";
 import ItemFactory from './ItemFactory.js';
 import BackendServerIP from "../BackendServerIP"
-import * as SecureStore from 'expo-secure-store';
 export default function History(){
     const [history, setHistory] = useState([])
     const [loading, setLoading] = useState(true)
